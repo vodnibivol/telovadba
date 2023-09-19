@@ -28,6 +28,7 @@ nav {
   width: 100%;
   height: 50px;
   background: #eee; // TODO: remove
+  color: #aaa;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -36,11 +37,26 @@ nav {
   //   border: 1px solid pink;
   // }
 
+  router-link {
+    background: red;
+  }
+
   a {
     font-weight: bold;
-    color: #aaa;
+    // background: red;
 
-    display: contents;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // display: contents;
+    text-decoration: none !important;
+
+    span.material-symbols-outlined {
+      vertical-align: middle;
+    }
 
     &.router-link-exact-active {
       color: #444;

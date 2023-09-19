@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/profile">
+  <router-link :to="url">
     <div id="training-card-container">
       <img :src="img" alt="training img" />
       <div id="content-container">
@@ -17,6 +17,12 @@ export default {
     title: String,
     duration: Number,
     img: String,
+    url: String,
+  },
+  data() {
+    return {
+      // url: '/profile',
+    };
   },
 };
 </script>
