@@ -43,10 +43,7 @@ export default {
   emits: ['VALUES_CHANGED'],
   methods: {
     onValueChange(propName, selectedValues) {
-      // console.log(propName, selectedValues);
       this.selectedValues[propName] = selectedValues;
-      this.filtersShown = false;
-      // console.log(this.selected);
     },
   },
   data() {
