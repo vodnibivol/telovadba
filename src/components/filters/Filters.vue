@@ -3,21 +3,21 @@
     <div id="difficulty-select">
       <button @click="openModal('difficulty')">
         <span>Difficulty</span>
-        <i class="material-symbols-outlined">expand_more</i>
+        <i class="material-symbols-outlined">add</i>
       </button>
     </div>
 
     <div id="body-part-select">
       <button @click="openModal('bodyPart')">
         <span>Body Part</span>
-        <i class="material-symbols-outlined">expand_more</i>
+        <i class="material-symbols-outlined">add</i>
       </button>
     </div>
 
     <div id="equipment-select">
       <button @click="openModal('equipment')">
         <span>Equipment</span>
-        <i class="material-symbols-outlined">expand_more</i>
+        <i class="material-symbols-outlined">add</i>
       </button>
     </div>
 
@@ -55,7 +55,7 @@
     :name="modalName"
     v-if="modalOpen"
     @VALUES_CHANGED="onValueChange"
-    @CLOSE_MODAL="this.modalOpen = false"
+    @CLOSE_MODAL="closeModal"
   />
 </template>
 
@@ -74,6 +74,12 @@ export default {
       this.modalOpen = true;
       this.modalValues = this[propName];
       this.modalName = propName;
+
+      document.body.classList.add('modal-open');
+    },
+    closeModal() {
+      this.modalOpen = false;
+      document.body.classList.remove('modal-open');
     },
     onValueChange(propName, selectedValues) {
       // console.log(propName, selectedValues);
@@ -152,9 +158,13 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // border-radius: 3px;
+  border-radius: 6px;
 
-  background: #eee;
+  font-weight: 500;
+
+  background: #fafafa;
+  border-color: var(--color-black);
+  color: var(--color-black);
 
   i {
     vertical-align: middle;
@@ -166,11 +176,15 @@ button {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  // background: lightsalmon;
+
+  position: sticky;
+  top: 70px;
+  background: #fafafa;
 }
 
 .bubble-container {
   // background: lightpink;
+  margin-top: 10px;
 
   .bubble {
     border: 2px solid;

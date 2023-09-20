@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{ name: 'Exercise', params: { id } }">
     <div id="exercise-card-container">
-      <img :src="'/img/ex/' + id + '-1.jpg'" alt="exercise img" />
+      <img :src="require('@/assets/img/ex/' + id + '-1.jpg')" alt="exercise img" />
       <div id="content-container">
         <h2 class="title">{{ title }}</h2>
         <!-- <p class="duration">{{ duration }} min</p> -->

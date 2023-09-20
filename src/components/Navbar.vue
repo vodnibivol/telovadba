@@ -1,15 +1,15 @@
 <template>
   <nav>
     <router-link to="/">
-      <span class="material-symbols-outlined">exercise</span>
+      <i class="material-symbols-outlined">exercise</i>
     </router-link>
     |
     <router-link to="/search">
-      <span class="material-symbols-outlined">search</span>
+      <i class="material-symbols-outlined">search</i>
     </router-link>
     |
     <router-link to="/profile">
-      <span class="material-symbols-outlined">account_circle</span>
+      <i class="material-symbols-outlined">account_circle</i>
     </router-link>
   </nav>
 </template>

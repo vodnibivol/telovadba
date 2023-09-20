@@ -2,20 +2,21 @@
   <Hero :title="data.title || 'Vaja'" :imageSrc="imageSrc">
     <!-- SLOT for back -->
     <div id="buttons-container">
-      <router-link id="back-link" @click.prevent="this.$router.go(-1)" to="#">
-        <span class="material-symbols-outlined">arrow_back_ios_new</span>
+      <!-- <router-link id="back-link" @click.prevent="this.$router.go(-1)" to="#"> -->
+      <router-link id="back-link" to="/search">
+        <i class="material-symbols-outlined">arrow_back</i>
       </router-link>
-      <span class="material-symbols-outlined">more_vert</span>
+      <i class="material-symbols-outlined">more_vert</i>
     </div>
   </Hero>
 
   <div id="exercise-details-container" v-if="data">
     <div id="difficulty-container" class="icon-title no-margin">
-      <span class="material-symbols-outlined">signal_cellular_alt</span>
+      <i class="material-symbols-outlined">signal_cellular_alt</i>
       <h3>{{ data.difficulty }}</h3>
     </div>
     <div id="category-container" class="icon-title no-margin">
-      <span class="material-symbols-outlined">category</span>
+      <i class="material-symbols-outlined">category</i>
       <h3>{{ data.category }}</h3>
     </div>
 
@@ -35,7 +36,7 @@
 
     <div id="equipment-container">
       <div class="icon-title">
-        <span class="material-symbols-outlined">exercise</span>
+        <i class="material-symbols-outlined">exercise</i>
         <h3>Equipment:</h3>
       </div>
       <em v-if="!data.equipment">No equipment needed.</em>
@@ -53,7 +54,7 @@
 
     <div id="body-parts-container">
       <div class="icon-title">
-        <span class="material-symbols-outlined">accessibility_new</span>
+        <i class="material-symbols-outlined">accessibility_new</i>
         <h3>Body Parts:</h3>
       </div>
       <div class="bubble-container">
@@ -81,9 +82,10 @@ export default {
   mounted() {
     // get all data and load:
     this.data = EXERCISES.find((e) => e.id == this.$route.params.id);
-    console.log(this.data);
+    console.log({ ...this.data });
+
     // IMAGE
-    this.imageSrc = '/img/ex/' + this.data.id + '-1.jpg';
+    this.imageSrc = require('@/assets/img/ex/' + this.data.id + '-1.jpg');
   },
 };
 </script>
@@ -99,6 +101,13 @@ export default {
 #buttons-container {
   display: flex;
   justify-content: space-between;
+  justify-self: flex-start;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--app-padding);
 }
 
 #equipment-container {
@@ -121,7 +130,7 @@ export default {
   display: flex;
   gap: 8px;
   margin-bottom: 15px;
-  
+
   &.no-margin {
     margin-bottom: 0;
   }

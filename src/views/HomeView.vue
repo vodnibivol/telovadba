@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Hero title="Trainings" imageSrc="/img/workout_1.jpeg" />
+    <Hero title="Trainings" :imageSrc="require('@/assets/img/workout_1.jpeg')" />
 
     <div id="trainings-container">
       <em v-if="!trainings.length">No trainings.</em>
@@ -29,12 +29,6 @@ export default {
         // { title: 'Trening 3', img: 'img3', duration: 50, url: '/training/id3' },
       ],
     };
-  },
-  async mounted() {
-    const res = await fetch('/exercises.json');
-    const data = await res.json();
-    this.workouts = data;
-    console.log(this.workouts);
   },
 };
 </script>

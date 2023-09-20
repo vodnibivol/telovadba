@@ -1,6 +1,6 @@
 <template>
   <div id="search">
-    <Hero title="Search" imageSrc="/img/workout_3.jpeg" />
+    <Hero title="Search" :imageSrc="require('@/assets/img/workout_3.jpeg')" />
 
     <div id="input-container" class="flex-center">
       <input type="text" v-model="input" placeholder="iskanje .." />
@@ -16,12 +16,20 @@
 
     <div id="search-results-container">
       <em>{{ filteredResults.length }} results <span v-if="filtersAreApplied">(Filters Applied)</span></em>
-      <!-- <br /> -->
 
-      <template v-for="w in filteredResults" :key="w.id">
+      <template v-for="w in filteredResults.slice(0, resultsLimit)" :key="w.id">
         <hr />
         <ExerciseCard :id="w.id" :title="w.title" :category="w.category" />
       </template>
+      <hr />
+      <br />
+
+      <div id="load-more-container">
+        <p>
+          <em>Showing {{ Math.min(resultsLimit, filteredResults.length) }} of {{ filteredResults.length }} results</em>
+        </p>
+        <p v-if="resultsLimit < filteredResults.length"><a href="#" id="load-more" @click.prevent="loadMoreResults">load more</a></p>
+      </div>
     </div>
   </div>
 </template>
@@ -45,11 +53,17 @@ export default {
     onValueChange(propName, selectedValues) {
       this.selectedValues[propName] = selectedValues;
     },
+    loadMoreResults() {
+      this.resultsLimit = Math.min(this.resultsLimit + this.resultsBatchSize, this.filteredResults.length);
+    },
   },
   data() {
     return {
       input: '',
       filtersShown: false,
+
+      resultsLimit: 12,
+      resultsBatchSize: 12,
 
       selectedValues: {
         difficulty: [],
@@ -91,6 +105,20 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+#load-more-container {
+  text-align: center;
+  margin-bottom: 20px;
+
+  p:first-child {
+    margin-bottom: 10px;
+  }
+
+  a#load-more {
+    font-weight: inherit;
+    text-decoration: underline;
+  }
 }
 
 #input-container {

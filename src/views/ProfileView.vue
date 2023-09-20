@@ -1,6 +1,6 @@
 <template>
   <div id="profile">
-    <Hero title="Profile" imageSrc="/img/workout_4.jpeg" />
+    <Hero title="Profile" :imageSrc="require('@/assets/img/workout_4.jpeg')" />
 
     <div id="profile-container">
       <em>Profile page is under construction.</em>

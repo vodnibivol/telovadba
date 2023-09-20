@@ -8,6 +8,7 @@
           <label class="option" :for="val"
             >{{ val }}
             <input type="checkbox" :value="val" :name="val" :id="val" v-model="selectedValues" @click="toggle" />
+            <i class="material-symbols-outlined md-18 md-dark">check</i>
           </label>
         </template>
       </div>
@@ -66,8 +67,9 @@ export default {
     width: 100%;
     background: #fff;
     border: 2px solid;
+    border-bottom: none;
     padding: 20px;
-    border-radius: 30px 30px 0 0;
+    border-radius: 25px 25px 0 0;
     overflow: scroll;
     z-index: 100;
     max-height: 95%;
@@ -83,6 +85,7 @@ export default {
         padding: 10px 10px;
         position: relative;
         cursor: pointer;
+        font-weight: 500;
 
         display: flex;
         justify-content: space-between;
@@ -103,8 +106,19 @@ export default {
         }
       }
 
-      input {
+      input[type="checkbox"] {
         appearance: checkbox !important;
+        display: none;
+
+        & ~ i {
+          opacity: 0.2;
+          // color: #ddd;
+        }
+        
+        &:checked ~ i {
+          opacity: 1;
+          // color: inherit;
+        }
       }
 
       hr {
@@ -115,9 +129,12 @@ export default {
     button {
       width: 100%;
       margin-top: 15px;
-      padding: 3px 7px;
+      padding: 5px 7px;
       border-radius: 50px;
+      border-color: var(--color-black);
+      color: var(--color-black);
       text-transform: uppercase;
+      font-weight: 500;
 
       display: flex;
       justify-content: center;
