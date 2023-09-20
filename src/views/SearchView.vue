@@ -87,6 +87,9 @@ export default {
 
         const tsv = this.selectedValues;
 
+        // body part: ITEM ima med bodyparti vsaj enega od iskanih
+        // selected values >> ALL of them are in body part
+
         if (tsv.difficulty.length && !tsv.difficulty.includes(ex.difficulty)) return;
         if (tsv.bodyPart.length && !tsv.bodyPart.every((p) => ex.bodyPart.includes(p))) return;
         if (tsv.equipment.length && !tsv.equipment.includes(ex.equipment)) return;

@@ -5,5 +5,6 @@ module.exports = defineConfig({
   pwa: {
     name: 'Telovadba',
     themeColor: '#FFF', // #B0C4DE:lightsteelblue
+    display: 'fullscreen',
   },
 });

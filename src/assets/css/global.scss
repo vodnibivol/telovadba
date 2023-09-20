@@ -17,6 +17,7 @@
   margin: 0;
   padding: 0;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
@@ -81,13 +82,13 @@ button {
   background: $color-primary;
   cursor: pointer;
 
-  &:hover {
-    background: darken($color-primary, 3);
-  }
+  // &:hover {
+  //   background: darken($color-primary, 3);
+  // }
 
-  &:active {
-    background: darken($color-primary, 6);
-  }
+  // &:active {
+  //   background: darken($color-primary, 6);
+  // }
 }
 
 // --- ICONS

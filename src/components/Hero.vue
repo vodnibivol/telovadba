@@ -33,17 +33,19 @@ export default {
   justify-content: end;
   position: relative;
   color: white;
+  background: #000;
 
   h1 {
     font-weight: 400;
     margin-top: 30px;
+    z-index: 10;
   }
 
   img {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
+    // z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: cover;
