@@ -2,8 +2,8 @@
   <Hero :title="data.title || 'Vaja'" :imageSrc="imageSrc">
     <!-- SLOT for back -->
     <div id="buttons-container">
-      <!-- <router-link id="back-link" @click.prevent="this.$router.go(-1)" to="#"> -->
-      <router-link id="back-link" to="/search">
+      <router-link id="back-link" @click.prevent="this.$router.go(-1)" to="#">
+      <!-- <router-link id="back-link" to="/search"> -->
         <i class="material-symbols-outlined">arrow_back</i>
       </router-link>
       <i class="material-symbols-outlined">more_vert</i>

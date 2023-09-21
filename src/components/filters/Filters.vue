@@ -25,7 +25,7 @@
     <div class="bubble-container" v-if="filtersAreApplied">
       <div
         class="bubble blue-1"
-        v-for="prop in selectedValues.difficulty"
+        v-for="prop in store.selectedFilters.difficulty"
         @click="removeItem('difficulty', prop)"
         :key="prop"
       >
@@ -33,7 +33,7 @@
       </div>
       <div
         class="bubble blue-2"
-        v-for="prop in selectedValues.bodyPart"
+        v-for="prop in store.selectedFilters.bodyPart"
         @click="removeItem('bodyPart', prop)"
         :key="prop"
       >
@@ -41,7 +41,7 @@
       </div>
       <div
         class="bubble blue-3"
-        v-for="prop in selectedValues.equipment"
+        v-for="prop in store.selectedFilters.equipment"
         @click="removeItem('equipment', prop)"
         :key="prop"
       >
@@ -54,7 +54,6 @@
     :values="modalValues"
     :name="modalName"
     v-if="modalOpen"
-    @VALUES_CHANGED="onValueChange"
     @CLOSE_MODAL="closeModal"
   />
 </template>
@@ -62,10 +61,10 @@
 <script>
 // import EXERCISES from '@/assets/exercises.json';
 import FilterModal from '@/components/filters/FilterModal.vue';
+import { store } from '@/store';
 
 export default {
   name: 'Filters',
-  emits: ['VALUES_CHANGED'],
   components: {
     FilterModal,
   },
@@ -85,26 +84,24 @@ export default {
       // console.log(propName, selectedValues);
       this.selectedValues[propName] = selectedValues;
       // console.log(this.selected);
-
-      // EMIT TO PARENT
-      this.$emit('VALUES_CHANGED', propName, selectedValues);
     },
     removeItem(propName, item) {
-      this.selectedValues[propName] = this.selectedValues[propName].filter((i) => i !== item);
-      this.$emit('VALUES_CHANGED', propName, this.selectedValues[propName]);
+      this.store.selectedFilters[propName] = this.store.selectedFilters[propName].filter((i) => i !== item);
     },
   },
   computed: {
     filtersAreApplied() {
       return (
-        this.selectedValues.difficulty.length ||
-        this.selectedValues.bodyPart.length ||
-        this.selectedValues.equipment.length
+        this.store.selectedFilters.difficulty.length ||
+        this.store.selectedFilters.bodyPart.length ||
+        this.store.selectedFilters.equipment.length
       );
     },
   },
   data() {
     return {
+      store,
+
       modalOpen: false,
       modalValues: [],
       selectedValues: {

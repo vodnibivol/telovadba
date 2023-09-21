@@ -26,16 +26,14 @@ nav {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 50px; // 65 for iPhone with Home Indicator
   background: #eee; // TODO: remove
   color: #aaa;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 
-  // * {
-  //   border: 1px solid pink;
-  // }
+  // padding-bottom: 10px;
 
   router-link {
     background: red;

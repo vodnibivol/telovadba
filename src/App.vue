@@ -1,6 +1,7 @@
 <template>
   <router-view />
   <Navbar />
+  <!-- <div id="home-indicator"></div> -->
 
     <!-- prettier-ignore -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -23,5 +24,16 @@ export default {
 <style lang="scss">
 #app {
   padding-bottom: 50px; // because of navbar
+}
+
+#home-indicator {
+  background: black;
+  width: 130px;
+  height: 5px;
+  position: fixed;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
 }
 </style>

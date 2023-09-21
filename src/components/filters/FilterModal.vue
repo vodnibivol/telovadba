@@ -1,43 +1,36 @@
 <template>
   <div id="filter-modal">
-    <div class="backdrop" @click.self="closeModal"></div>
+    <div class="backdrop" @click.self="$emit('CLOSE_MODAL')"></div>
 
     <div class="card">
       <div class="options">
         <template v-for="(val, i) in values" :key="i">
           <label class="option" :for="val"
             >{{ val }}
-            <input type="checkbox" :value="val" :name="val" :id="val" v-model="selectedValues" @click="toggle" />
+            <input type="checkbox" :value="val" :name="val" :id="val" v-model="store.selectedFilters[name]" @click="toggle" />
             <i class="material-symbols-outlined md-18 md-dark">check</i>
           </label>
         </template>
       </div>
 
-      <button type="submit" @click="submitChanges">Apply</button>
+      <button type="submit" @click="$emit('CLOSE_MODAL')">Apply</button>
     </div>
   </div>
 </template>
 
 <script>
+import { store } from '@/store';
+
 export default {
+  name: 'FilterModal',
   props: {
     name: String,
     values: Array,
   },
-  name: 'FilterModal',
   data() {
     return {
-      selectedValues: [],
+      store,
     };
-  },
-  methods: {
-    submitChanges() {
-      this.$emit('CLOSE_MODAL');
-      this.$emit('VALUES_CHANGED', this.name, this.selectedValues);
-    },
-    closeModal() {
-      this.$emit('CLOSE_MODAL');
-    },
   },
 };
 </script>
@@ -106,7 +99,7 @@ export default {
         }
       }
 
-      input[type="checkbox"] {
+      input[type='checkbox'] {
         appearance: checkbox !important;
         display: none;
 
@@ -114,7 +107,7 @@ export default {
           opacity: 0.2;
           // color: #ddd;
         }
-        
+
         &:checked ~ i {
           opacity: 1;
           // color: inherit;

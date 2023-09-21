@@ -2,8 +2,9 @@
   <div id="search">
     <Hero title="Search" :imageSrc="require('@/assets/img/workout_3.jpeg')" />
 
+    <!-- INPUT -->
     <div id="input-container" class="flex-center">
-      <input type="text" v-model="input" placeholder="iskanje .." />
+      <input type="text" v-model="store.filterInput" placeholder="iskanje .." />
       <i
         class="material-symbols-outlined md-dark"
         :class="{ 'md-inactive': !filtersShown }"
@@ -12,8 +13,10 @@
       >
     </div>
 
-    <Filters v-if="filtersShown" @VALUES_CHANGED="onValueChange" />
+    <!-- FILTERS -->
+    <Filters v-if="filtersShown" />
 
+    <!-- RESULTS -->
     <div id="search-results-container">
       <em>{{ filteredResults.length }} results <span v-if="filtersAreApplied">(Filters Applied)</span></em>
 
@@ -28,7 +31,9 @@
         <p>
           <em>Showing {{ Math.min(resultsLimit, filteredResults.length) }} of {{ filteredResults.length }} results</em>
         </p>
-        <p v-if="resultsLimit < filteredResults.length"><a href="#" id="load-more" @click.prevent="loadMoreResults">load more</a></p>
+        <p v-if="resultsLimit < filteredResults.length">
+          <a href="#" id="load-more" @click.prevent="loadMoreResults">load more</a>
+        </p>
       </div>
     </div>
   </div>
@@ -39,8 +44,9 @@ import Hero from '@/components/Hero.vue';
 import ExerciseCard from '@/components/ExerciseCard.vue';
 import Filters from '@/components/filters/Filters.vue';
 
+import { store } from '@/store';
+
 import EXERCISES from '@/assets/exercises.json';
-console.log(EXERCISES[12]);
 
 export default {
   components: {
@@ -48,7 +54,6 @@ export default {
     ExerciseCard,
     Filters,
   },
-  emits: ['VALUES_CHANGED'],
   methods: {
     onValueChange(propName, selectedValues) {
       this.selectedValues[propName] = selectedValues;
@@ -59,7 +64,9 @@ export default {
   },
   data() {
     return {
-      input: '',
+      store,
+
+      // input: '',
       filtersShown: false,
 
       resultsLimit: 12,
@@ -75,17 +82,17 @@ export default {
   computed: {
     filtersAreApplied() {
       return (
-        this.selectedValues.difficulty.length ||
-        this.selectedValues.bodyPart.length ||
-        this.selectedValues.equipment.length
+        this.store.selectedFilters.difficulty.length ||
+        this.store.selectedFilters.bodyPart.length ||
+        this.store.selectedFilters.equipment.length
       );
     },
     filteredResults() {
-      const reg = new RegExp(this.input, 'i');
+      const reg = new RegExp(this.store.filterInput, 'i');
       return EXERCISES.filter((ex) => {
         if (!reg.test(ex.title)) return;
 
-        const tsv = this.selectedValues;
+        const tsv = this.store.selectedFilters;
 
         // body part: ITEM ima med bodyparti vsaj enega od iskanih
         // selected values >> ALL of them are in body part
