@@ -15,10 +15,10 @@ module.exports = defineConfig({
 
     // custom SW
     // workboxPluginMode: 'InjectManifest',
-    // workboxOptions: {
-    //   // ... other Workbox options
-    //   skipWaiting: true,
-    // },
+    workboxOptions: {
+      // ... other Workbox options
+      skipWaiting: true,
+    },
   },
 
   // webpack service worker
