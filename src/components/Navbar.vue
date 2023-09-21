@@ -1,17 +1,19 @@
 <template>
-  <nav>
-    <router-link to="/">
-      <i class="material-symbols-outlined">exercise</i>
-    </router-link>
-    |
-    <router-link to="/search">
-      <i class="material-symbols-outlined">search</i>
-    </router-link>
-    |
-    <router-link to="/profile">
-      <i class="material-symbols-outlined">account_circle</i>
-    </router-link>
-  </nav>
+  <div id="navbar-container">
+    <nav>
+      <router-link to="/">
+        <i class="material-symbols-outlined">exercise</i>
+      </router-link>
+      |
+      <router-link to="/search">
+        <i class="material-symbols-outlined">search</i>
+      </router-link>
+      |
+      <router-link to="/profile">
+        <i class="material-symbols-outlined">account_circle</i>
+      </router-link>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -21,27 +23,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-nav {
+#navbar-container {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
+
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom, 7px);
+  // padding-bottom: 7px; // TODO
+  background: #eee;
+}
+
+nav {
   height: 50px; // 65 for iPhone with Home Indicator
-  background: #eee; // TODO: remove
-  color: #aaa;
+  width: 100%;
+  
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
-  // padding-bottom: 10px;
-
-  router-link {
-    background: red;
-  }
-
+  
   a {
     font-weight: bold;
-    // background: red;
+    color: #aaa;
 
     width: 100%;
     height: 100%;
@@ -49,12 +53,7 @@ nav {
     justify-content: center;
     align-items: center;
 
-    // display: contents;
     text-decoration: none !important;
-
-    span.material-symbols-outlined {
-      vertical-align: middle;
-    }
 
     &.router-link-exact-active {
       color: #444;

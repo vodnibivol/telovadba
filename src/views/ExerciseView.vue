@@ -2,7 +2,7 @@
   <Hero :title="data.title || 'Vaja'" :imageSrc="imageSrc">
     <!-- SLOT for back -->
     <div id="buttons-container">
-      <router-link id="back-link" @click.prevent="this.$router.go(-1)" to="#">
+      <router-link id="back-link" @click.prevent="$router.go(-1)" to="#">
       <!-- <router-link id="back-link" to="/search"> -->
         <i class="material-symbols-outlined">arrow_back</i>
       </router-link>
@@ -67,6 +67,7 @@
 <script>
 import Hero from '@/components/Hero.vue';
 import EXERCISES from '@/assets/exercises.json';
+// import { baseUrl } from '@/store';
 
 export default {
   name: 'Exercise',
@@ -75,6 +76,8 @@ export default {
   },
   data() {
     return {
+      // baseUrl,
+
       imageSrc: '',
       data: {},
     };
@@ -85,7 +88,7 @@ export default {
     console.log({ ...this.data });
 
     // IMAGE
-    this.imageSrc = require('@/assets/img/ex/' + this.data.id + '-1.jpg');
+    this.imageSrc = 'img/ex/' + this.data.id + '-1.jpg';
   },
 };
 </script>

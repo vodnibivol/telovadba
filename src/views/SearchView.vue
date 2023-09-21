@@ -1,10 +1,10 @@
 <template>
   <div id="search">
-    <Hero title="Search" :imageSrc="require('@/assets/img/workout_3.jpeg')" />
+    <Hero title="Search" imageSrc="img/workout_3.jpeg" />
 
     <!-- INPUT -->
     <div id="input-container" class="flex-center">
-      <input type="text" v-model="store.filterInput" placeholder="iskanje .." />
+      <input type="text" v-model="store.filterInput" placeholder="Filter results" />
       <i
         class="material-symbols-outlined md-dark"
         :class="{ 'md-inactive': !filtersShown }"

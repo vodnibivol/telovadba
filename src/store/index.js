@@ -1,5 +1,4 @@
-// store/index.js
-
+// STORE
 import { reactive } from 'vue';
 
 export const store = reactive({
@@ -11,9 +10,12 @@ export const store = reactive({
     bodyPart: [],
     equipment: [],
   },
-
-  // img load error event
-  imgError(e) {
-    e.target.remove(); // or: e.target.src = "/broken-img-png";
-  },
 });
+
+// GLOBAL IMPORTABLE FUNCTIONS
+export const baseUrl = process.env.BASE_URL;
+
+// img load error event
+export function imgError(e) {
+  e.target.style.display = 'none'; // or: e.target.src = "/broken-img-png";
+}

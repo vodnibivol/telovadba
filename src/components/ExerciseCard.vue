@@ -1,10 +1,13 @@
 <template>
   <router-link :to="{ name: 'Exercise', params: { id } }">
     <div id="exercise-card-container">
-      <img :src="require('@/assets/img/ex/' + id + '-1.jpg')" alt="exercise img" />
+      <div id="img-container" class="flex-center">
+        <i class="material-symbols-outlined">broken_image</i>
+        <img :src="baseUrl + 'img/ex/' + id + '-1.jpg'" @error="imgError" />
+      </div>
+
       <div id="content-container">
         <h2 class="title">{{ title }}</h2>
-        <!-- <p class="duration">{{ duration }} min</p> -->
         <p class="category">{{ category }}</p>
       </div>
     </div>
@@ -12,6 +15,8 @@
 </template>
 
 <script>
+import { store, baseUrl, imgError } from '@/store';
+
 export default {
   name: 'ExerciseCard',
   props: {
@@ -19,6 +24,15 @@ export default {
     duration: Number,
     category: String,
     id: Number,
+  },
+  data() {
+    return {
+      store,
+      baseUrl,
+    };
+  },
+  methods: {
+    imgError,
   },
 };
 </script>
@@ -29,11 +43,25 @@ $card-height: 60px;
 #exercise-card-container {
   display: flex;
 
-  img {
+  #img-container {
+    background: lightsteelblue;
+    position: relative;
+    z-index: -1;
     width: $card-height;
     height: $card-height;
-    background: lightsteelblue;
-    object-fit: cover;
+    flex-shrink: 0;
+
+    i {
+      opacity: 0.2;
+    }
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: lightsteelblue;
+    }
   }
 
   #content-container {

@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Hero title="Trainings" :imageSrc="require('@/assets/img/workout_1.jpeg')" />
+    <Hero title="Trainings" imageSrc="img/workout_1.jpeg" />
 
     <div id="trainings-container">
       <em v-if="!trainings.length">No trainings.</em>
@@ -14,7 +14,6 @@
 <script>
 import Hero from '@/components/Hero.vue';
 import TrainingCard from '@/components/TrainingCard.vue';
-// import EXERCISES from '@/assets/exercises.json';
 
 export default {
   components: {

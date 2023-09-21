@@ -59,7 +59,6 @@
 </template>
 
 <script>
-// import EXERCISES from '@/assets/exercises.json';
 import FilterModal from '@/components/filters/FilterModal.vue';
 import { store } from '@/store';
 
@@ -81,9 +80,7 @@ export default {
       document.body.classList.remove('modal-open');
     },
     onValueChange(propName, selectedValues) {
-      // console.log(propName, selectedValues);
       this.selectedValues[propName] = selectedValues;
-      // console.log(this.selected);
     },
     removeItem(propName, item) {
       this.store.selectedFilters[propName] = this.store.selectedFilters[propName].filter((i) => i !== item);
@@ -110,7 +107,7 @@ export default {
         equipment: [],
       },
 
-      // ---
+      // --- options
       difficulty: ['Beginner', 'Intermediate', 'Advanced'],
       bodyPart: [
         'Abs',
