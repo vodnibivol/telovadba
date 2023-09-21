@@ -3,21 +3,21 @@
     <div id="difficulty-select">
       <button @click="openModal('difficulty')">
         <span>Difficulty</span>
-        <i class="material-symbols-outlined">add</i>
+        <i class="material-symbols-outlined md-18">add</i>
       </button>
     </div>
 
     <div id="body-part-select">
       <button @click="openModal('bodyPart')">
         <span>Body Part</span>
-        <i class="material-symbols-outlined">add</i>
+        <i class="material-symbols-outlined md-18">add</i>
       </button>
     </div>
 
     <div id="equipment-select">
       <button @click="openModal('equipment')">
         <span>Equipment</span>
-        <i class="material-symbols-outlined">add</i>
+        <i class="material-symbols-outlined md-18">add</i>
       </button>
     </div>
 
@@ -150,7 +150,7 @@ export default {
 
 <style lang="scss" scoped>
 button {
-  padding: 3px 7px;
+  padding: 5px 7px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -159,7 +159,7 @@ button {
 
   font-weight: 500;
 
-  background: #fafafa;
+  background: #f6f6f6;
   border-color: var(--color-black);
   color: var(--color-black);
 

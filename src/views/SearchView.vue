@@ -20,7 +20,7 @@
     <div id="search-results-container">
       <em>{{ filteredResults.length }} results <span v-if="filtersAreApplied">(Filters Applied)</span></em>
 
-      <template v-for="w in filteredResults.slice(0, resultsLimit)" :key="w.id">
+      <template v-for="w in filteredResults.slice(0, store.resultsLimit)" :key="w.id">
         <hr />
         <ExerciseCard :id="w.id" :title="w.title" :category="w.category" />
       </template>
@@ -29,9 +29,9 @@
 
       <div id="load-more-container">
         <p>
-          <em>Showing {{ Math.min(resultsLimit, filteredResults.length) }} of {{ filteredResults.length }} results</em>
+          <em>Showing {{ Math.min(store.resultsLimit, filteredResults.length) }} of {{ filteredResults.length }} results</em>
         </p>
-        <p v-if="resultsLimit < filteredResults.length">
+        <p v-if="store.resultsLimit < filteredResults.length">
           <a href="#" id="load-more" @click.prevent="loadMoreResults">load more</a>
         </p>
       </div>
@@ -59,17 +59,15 @@ export default {
       this.selectedValues[propName] = selectedValues;
     },
     loadMoreResults() {
-      this.resultsLimit = Math.min(this.resultsLimit + this.resultsBatchSize, this.filteredResults.length);
+      this.store.resultsLimit = Math.min(this.store.resultsLimit + this.resultsBatchSize, this.filteredResults.length);
     },
   },
   data() {
     return {
       store,
 
-      // input: '',
       filtersShown: false,
 
-      resultsLimit: 12,
       resultsBatchSize: 12,
 
       selectedValues: {

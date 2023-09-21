@@ -1,6 +1,6 @@
 <template>
   <div id="hero-container">
-    <img :src="imageSrc || require('@/assets/img/workout_1.jpeg')" alt="hero">
+    <img :src="imageSrc || require('@/assets/img/workout_1.jpeg')" alt="hero" />
     <slot></slot>
 
     <h1>{{ title || 'Title' }}</h1>
