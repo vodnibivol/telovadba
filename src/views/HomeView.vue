@@ -53,7 +53,7 @@ export default {
     margin-top: 20px;
 
     button {
-      @include button(hsl(197, 50%, 85%));
+      @include button(hsl(215, 46%, 86%));
 
       padding: 7px 12px 7px 8px;
       display: flex;
@@ -65,7 +65,7 @@ export default {
 
       border-color: var(--color-black);
       border: none;
-      color: hsl(197, 30%, 55%);
+      color: hsl(215, 26%, 55%);
     }
   }
 }

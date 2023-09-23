@@ -1,5 +1,3 @@
-<!-- TODO: !!!! -->
-
 <template>
   <router-link to="#">
     <div id="exercise-card-container">

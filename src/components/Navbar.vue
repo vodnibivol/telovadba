@@ -30,13 +30,13 @@ export default {
   width: 100%;
 
   display: flex;
-  padding-bottom: env(safe-area-inset-bottom, 7px);
-  // padding-bottom: 7px; // TODO
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  padding-top: 12px;
   background: #eee;
 }
 
 nav {
-  height: 50px; // 65 for iPhone with Home Indicator
+  // height: 50px;
   width: 100%;
   
   display: flex;

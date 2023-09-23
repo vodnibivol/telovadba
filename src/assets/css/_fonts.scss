@@ -6,7 +6,7 @@
   font-family: 'Lexend';
   font-style: normal;
   font-weight: 400;
-  src: url('~@/assets/fonts/lexend-v19-latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('@/assets/fonts/lexend-v19-latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 /* lexend-500 - latin-ext */
@@ -15,7 +15,7 @@
   font-family: 'Lexend';
   font-style: normal;
   font-weight: 500;
-  src: url('~@/assets/fonts/lexend-v19-latin-ext-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('@/assets/fonts/lexend-v19-latin-ext-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 /* lexend-600 - latin-ext */
@@ -24,16 +24,17 @@
   font-family: 'Lexend';
   font-style: normal;
   font-weight: 600;
-  src: url('~@/assets/fonts/lexend-v19-latin-ext-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('@/assets/fonts/lexend-v19-latin-ext-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 // MATERIAL SYMBOLS
 
 @font-face {
+  font-display: block;
   font-family: 'Material Symbols Outlined';
   font-style: normal;
   font-weight: 100 700;
-  src: url('~@/assets/fonts/material_symbols_outlined.woff2') format('woff2');
+  src: url('@/assets/fonts/material_symbols_outlined.woff2') format('woff2');
 }
 
 .material-symbols-outlined {
@@ -50,4 +51,6 @@
   direction: ltr;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; /* Support for Firefox. */
+  font-feature-settings: 'liga'; /* Support for IE. */
 }
