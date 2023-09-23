@@ -1,43 +1,72 @@
 <template>
   <div id="home">
-    <Hero title="Trainings" imageSrc="img/workout_1.jpeg" />
+    <Hero title="Workouts" imageSrc="img/workout_1.jpeg" />
 
-    <div id="trainings-container">
-      <em v-if="!trainings.length">No trainings.</em>
-      <template :key="t" v-for="t in trainings">
-        <TrainingCard :img="t.img" :title="t.title" :duration="t.duration" :url="t.url" />
+    <div id="workouts-container">
+      <em>{{ store.workouts.length }} workouts</em>
+
+      <template v-for="(w, i) in store.workouts" :key="i">
+        <hr />
+        <WorkoutCard :id="w.id" :title="w.title" :exercises="w.exercises" />
       </template>
+      <hr />
+
+      <div id="add-new-container" class="flex-center">
+        <button>
+          <i class="material-symbols-outlined md-18">add</i>
+          <span>New Workout</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Hero from '@/components/Hero.vue';
-import TrainingCard from '@/components/TrainingCard.vue';
+import WorkoutCard from '@/components/cards/WorkoutCard.vue';
+import { store } from '@/store';
 
 export default {
   components: {
     Hero,
-    TrainingCard,
+    WorkoutCard,
   },
   data() {
     return {
-      trainings: [
-        // { title: 'Trening 1', img: 'img1', duration: 30, url: '/training/id1' },
-        // { title: 'Trening 2', img: 'img2', duration: 20, url: '/training/id2' },
-        // { title: 'Trening 3', img: 'img3', duration: 50, url: '/training/id3' },
-      ],
+      store,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#trainings-container {
+@import '@/assets/css/_mixins.scss';
+
+#workouts-container {
   padding: var(--app-padding);
 
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  #add-new-container {
+    margin-top: 20px;
+
+    button {
+      @include button(hsl(197, 50%, 85%));
+
+      padding: 7px 12px 7px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 50px;
+
+      font-weight: 500;
+
+      border-color: var(--color-black);
+      border: none;
+      color: hsl(197, 30%, 55%);
+    }
+  }
 }
 </style>

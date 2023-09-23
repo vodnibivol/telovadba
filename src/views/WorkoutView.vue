@@ -1,18 +1,18 @@
 <template>
-  <Hero :title="data.title || 'Exercise'" :imageSrc="imageSrc">
+  <Hero :title="data.title || 'Workout'" :imageSrc="imageSrc">
     <!-- SLOT for back -->
     <div id="buttons-container">
-      <router-link id="back-link" @click.prevent="$router.go(-1)" to="#">
-        <!-- <router-link id="back-link" to="/search"> -->
+      <!-- <router-link id="back-link" @click.prevent="$router.go(-1)" to="#"> -->
+      <router-link id="back-link" to="/">
         <i class="material-symbols-outlined">arrow_back</i>
       </router-link>
       <i class="material-symbols-outlined disabled">more_vert</i>
     </div>
   </Hero>
 
-  <div id="body">
+  <div id="body" v-if="data">
     <!-- DIFFICULTY and CATEGORY -->
-    <div id="difficulty-container" class="icon-title no-margin">
+    <!-- <div id="difficulty-container" class="icon-title no-margin">
       <i class="material-symbols-outlined">signal_cellular_alt</i>
       <h3>{{ data.difficulty }}</h3>
     </div>
@@ -21,7 +21,17 @@
       <h3>{{ data.category }}</h3>
     </div>
 
-    <hr />
+    <hr /> -->
+
+    <div id="exercises-container">
+      <em>{{ data.exercises.length }} exercises</em>
+
+      <template v-for="(w, i) in data.exercises" :key="i">
+        <hr />
+        <ExerciseCard :id="w.id" :title="w.title" :category="w.category" />
+      </template>
+      <hr />
+    </div>
 
     <!-- REPETITIONS -->
     <div id="repetitions-container">
@@ -49,14 +59,6 @@
 
     <hr />
 
-    <!-- INSTRUCTIONS -->
-    <div id="instructions-container">
-      <h2>Instructions</h2>
-      <p v-for="(step, i) in data.steps" :key="i" v-html="step.replace(/^([\w\s\-]+:)/, '<b>$1</b>')"></p>
-    </div>
-
-    <hr />
-
     <!-- BODY PARTS -->
     <div id="body-parts-container">
       <div class="icon-title">
@@ -72,25 +74,41 @@
 
 <script>
 import Hero from '@/components/Hero.vue';
+import ExerciseCard from '@/components/cards/ExerciseCard.vue';
 import EXERCISES from '@/assets/exercises.json';
+import { store } from '@/store';
 
 export default {
   name: 'Exercise',
   components: {
     Hero,
+    ExerciseCard,
   },
   data() {
     return {
+      store,
+
       imageSrc: '',
-      data: {},
+
+      data: {
+        exercises: [],
+      },
     };
   },
   mounted() {
     // get data on load:
-    this.data = EXERCISES.find((e) => e.id == this.$route.params.id);
+    this.data = store.workouts.find((w) => w.id == this.$route.params.id);
+    console.log(this.data.exercises.length);
+
+    for (let ex of this.data.exercises) {
+      const d = EXERCISES.find((e) => e.id === ex.id);
+      console.log(d);
+      ex.title = d.title;
+      ex.category = d.category;
+    }
 
     // set image src from data
-    this.imageSrc = 'img/ex/' + this.data.id + '-1.jpg';
+    this.imageSrc = 'img/ex/' + this.data.exercises[0].id + '-1.jpg';
   },
 };
 </script>
@@ -114,6 +132,12 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  #exercises-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 
   #equipment-container {
     p {

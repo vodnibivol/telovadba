@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import SearchView from '../views/SearchView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import ExerciseView from '../views/ExerciseView.vue';
+import WorkoutView from '../views/WorkoutView.vue';
 
 const routes = [
   {
@@ -22,18 +23,16 @@ const routes = [
   {
     path: '/profile',
     name: 'Profile',
-    // component: () => import('../views/ProfileView.vue'),
     component: ProfileView,
   },
-  // {
-  //   path: '/training/:id',
-  //   name: 'Training',
-  //   component: () => import('../views/TrainingView.vue'),
-  // },
+  {
+    path: '/workout/:id',
+    name: 'Workout',
+    component: WorkoutView,
+  },
   {
     path: '/exercise/:id',
     name: 'Exercise',
-    // component: () => import('../views/ExerciseView.vue'),
     component: ExerciseView,
   },
 ];

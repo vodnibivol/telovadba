@@ -1,6 +1,6 @@
 <template>
-  <router-link :to="{ name: 'Exercise', params: { id } }">
-    <div id="exercise-card-container">
+  <router-link :to="{ name: 'Workout', params: { id } }">
+    <div id="workout-card-container">
       <div id="img-container" class="flex-center">
         <i class="material-symbols-outlined">broken_image</i>
         <img :src="baseUrl + 'img/ex/' + id + '-1.jpg'" @error="imgError" />
@@ -18,10 +18,9 @@
 import { store, baseUrl, imgError } from '@/store';
 
 export default {
-  name: 'ExerciseCard',
+  name: 'WorkoutCard',
   props: {
     title: String,
-    duration: Number,
     category: String,
     id: Number,
   },
@@ -40,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 $card-height: 60px;
 
-#exercise-card-container {
+#workout-card-container {
   display: flex;
 
   #img-container {
@@ -80,7 +79,6 @@ $card-height: 60px;
       text-overflow: ellipsis;
     }
 
-    p.duration,
     p.category {
       font-size: 12px;
       color: #bbb;

@@ -146,9 +146,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/_mixins.scss";
+
 button {
+  @include button(#f6f6f6);
+  
   padding: 5px 7px;
-  width: 100%;
+  width: 100%; // TODO: manjši so lepši
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -156,13 +160,8 @@ button {
 
   font-weight: 500;
 
-  background: #f6f6f6;
   border-color: var(--color-black);
   color: var(--color-black);
-
-  i {
-    vertical-align: middle;
-  }
 }
 
 #filter-container {

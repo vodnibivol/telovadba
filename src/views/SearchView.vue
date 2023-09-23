@@ -41,7 +41,7 @@
 
 <script>
 import Hero from '@/components/Hero.vue';
-import ExerciseCard from '@/components/ExerciseCard.vue';
+import ExerciseCard from '@/components/cards/ExerciseCard.vue';
 import Filters from '@/components/filters/Filters.vue';
 
 import { store } from '@/store';

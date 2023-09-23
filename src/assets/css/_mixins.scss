@@ -1,0 +1,12 @@
+@mixin button($base-color) {
+  background-color: $base-color;
+  cursor: pointer;
+
+  &:hover {
+    background: darken($base-color, 3);
+  }
+
+  &:active {
+    background: darken($base-color, 6);
+  }
+}
