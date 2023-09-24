@@ -3,21 +3,21 @@
     <div id="difficulty-select">
       <button @click="openModal('difficulty')">
         <span>Difficulty</span>
-        <i class="material-symbols-outlined md-18">add</i>
+        <i class="material-symbols-outlined md-20">add</i>
       </button>
     </div>
 
     <div id="body-part-select">
       <button @click="openModal('bodyPart')">
         <span>Body Part</span>
-        <i class="material-symbols-outlined md-18">add</i>
+        <i class="material-symbols-outlined md-20">add</i>
       </button>
     </div>
 
     <div id="equipment-select">
       <button @click="openModal('equipment')">
         <span>Equipment</span>
-        <i class="material-symbols-outlined md-18">add</i>
+        <i class="material-symbols-outlined md-20">add</i>
       </button>
     </div>
 
@@ -50,37 +50,50 @@
     </div>
   </div>
 
-  <FilterModal
-    :values="modalValues"
-    :name="modalName"
-    v-if="modalOpen"
-    @CLOSE_MODAL="closeModal"
-  />
+  <div id="filter-modal">
+    <!-- pass the event to the -->
+    <Modal v-if="modalOpen" @CLOSE_MODAL="closeModal">
+      <!-- SLOT -->
+      <div class="options">
+        <template v-for="(val, i) in modalValues" :key="i">
+          <label class="option" :for="val"
+            >{{ val }}
+            <input
+              type="checkbox"
+              :value="val"
+              :name="val"
+              :id="val"
+              v-model="store.selectedFilters[modalName]"
+              @click="toggle"
+            />
+            <i class="material-symbols-outlined md-18 md-dark">check</i>
+          </label>
+        </template>
+      </div>
+    </Modal>
+  </div>
 </template>
 
 <script>
-import FilterModal from '@/components/filters/FilterModal.vue';
-import { store } from '@/store';
+import Modal from '../Modal.vue';
+import { store, modal } from '@/store';
 
 export default {
   name: 'Filters',
   components: {
-    FilterModal,
+    Modal,
   },
   methods: {
     openModal(propName) {
       this.modalOpen = true;
-      this.modalValues = this[propName];
       this.modalName = propName;
+      this.modalValues = this[propName];
 
       document.body.classList.add('modal-open');
     },
     closeModal() {
       this.modalOpen = false;
       document.body.classList.remove('modal-open');
-    },
-    onValueChange(propName, selectedValues) {
-      this.selectedValues[propName] = selectedValues;
     },
     removeItem(propName, item) {
       this.store.selectedFilters[propName] = this.store.selectedFilters[propName].filter((i) => i !== item);
@@ -98,6 +111,7 @@ export default {
   data() {
     return {
       store,
+      modal,
 
       modalOpen: false,
       modalValues: [],
@@ -173,6 +187,44 @@ button {
   position: sticky;
   top: 70px;
   background: #fafafa;
+}
+
+#filter-modal .options {
+  // border: 2px solid;
+  overflow: scroll;
+
+  label.option {
+    position: relative;
+
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 1px solid #eee;
+      width: 100%;
+    }
+  }
+
+  input[type='checkbox'] {
+    display: none;
+
+    & ~ i {
+      opacity: 0.2;
+    }
+
+    &:checked ~ i {
+      opacity: 1;
+    }
+  }
 }
 
 .bubble-container {

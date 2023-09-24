@@ -4,6 +4,7 @@
 :root {
   --app-padding: 20px;
   --color-black: #2c3e50;
+  --card-gap: 7px;
 }
 
 #app {
@@ -75,6 +76,7 @@ input,
 button {
   appearance: none;
   font-size: inherit;
+  color: inherit
 }
 
 button {
@@ -89,6 +91,10 @@ button {
   /* Rules for sizing the icon. */
   &.md-18 {
     font-size: 18px;
+  }
+
+  &.md-20 {
+    font-size: 21px;
   }
 
   &.md-24 {

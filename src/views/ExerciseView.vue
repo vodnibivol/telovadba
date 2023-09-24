@@ -30,8 +30,8 @@
       </div>
       <div class="bubble-container">
         <!-- TODO -->
-        <span class="bubble">6x</span>
-        <span class="bubble">30s</span>
+        <button class="bubble" @click="openModal">6x</button>
+        <button class="bubble" @click="openModal">30s</button>
       </div>
     </div>
 
@@ -67,35 +67,84 @@
         <div class="bubble" v-for="(e, i) in data.bodyPart" :key="i">{{ e }}</div>
       </div>
     </div>
+
+    <!-- MODAL -->
+    <Modal v-if="modalOpen" @CLOSE="closeModal" @SUBMIT="submitPrefs">
+      <div id="settings-container">
+        <div class="flex-center">
+          <h3>Repetitions:</h3>
+          <NumberSelect :min="1" :max="99" :step="1" :defaultVal="data.repetitions || 6" ref="reps" />
+          <!-- TODO: namesto defaultVal da je kar value? -->
+        </div>
+
+        <hr />
+
+        <div class="flex-center">
+          <h3>Cooldown:</h3>
+          <NumberSelect :min="0" :max="300" :step="10" :defaultVal="data.cooldown || 30" ref="cldn" />
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
 import Hero from '@/components/Hero.vue';
+import Modal from '@/components/Modal.vue';
+import NumberSelect from '@/components/NumberSelect.vue';
+
 import EXERCISES from '@/assets/exercises.json';
 
 export default {
   name: 'Exercise',
   components: {
     Hero,
+    Modal,
+    NumberSelect,
   },
   data() {
     return {
       imageSrc: '',
       data: {},
+
+      modalOpen: true,
     };
   },
   mounted() {
     // get data on load:
     this.data = EXERCISES.find((e) => e.id == this.$route.params.id);
+    this.data.repetitions = 10;
 
     // set image src from data
     this.imageSrc = 'img/ex/' + this.data.id + '-1.jpg';
+  },
+  methods: {
+    openModal() {
+      this.modalOpen = true;
+
+      // TODO: on change: naredi, da se ko kliknes applyja. pa potem spremeni še pri filtrih
+    },
+
+    closeModal() {
+      // TODO: apply changes
+      this.modalOpen = false;
+    },
+
+    submitPrefs() {
+      const repetitions = this.$refs.reps.value;
+      const cooldown = this.$refs.cldn.value;
+
+      console.log(repetitions, cooldown);
+
+      // TODO: "TD_EXERCISE_PREFS" => add { repetitions, cooldown }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/_mixins.scss';
+
 // HERO
 #buttons-container {
   display: flex;
@@ -107,6 +156,13 @@ export default {
   left: 0;
   width: 100%;
   padding: var(--app-padding);
+}
+
+#repetitions-container .bubble {
+  @include button(#eee);
+  // font-weight: 500;
+  // cursor: pointer;
+  border: none;
 }
 
 #body {
@@ -126,6 +182,24 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 15px;
+  }
+
+  #modal {
+    #settings-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      div {
+        justify-content: space-between;
+
+        // input {
+        //   width: 52px;
+        //   padding: 2px 4px;
+        //   appearance: initial;
+        // }
+      }
+    }
   }
 }
 </style>

@@ -49,7 +49,7 @@ export default {
 
   h1 {
     font-weight: 400;
-    margin-top: 30px;
+    margin-top: 70px;
     z-index: 10;
   }
 

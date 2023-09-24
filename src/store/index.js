@@ -54,3 +54,20 @@ export const baseUrl = process.env.BASE_URL;
 export function imgError(e) {
   e.target.style.display = 'none'; // or: e.target.src = "/broken-img-png";
 }
+
+export const modal = reactive({
+  isOpen: false,
+  name: '',
+  props: '',
+
+  methods: {
+    open(name, props) {
+      this.isOpen = true;
+      document.body.classList.add('modal-open'); // TODO: reactive
+    },
+    close(name, props) {
+      this.isOpen = false;
+      document.body.classList.remove('modal-open');
+    },
+  },
+});

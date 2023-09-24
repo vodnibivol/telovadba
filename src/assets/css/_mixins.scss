@@ -1,4 +1,4 @@
-@mixin button($base-color) {
+@mixin button($base-color: lightblue) {
   background-color: $base-color;
   cursor: pointer;
 

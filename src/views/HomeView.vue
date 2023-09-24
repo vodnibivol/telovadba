@@ -13,7 +13,7 @@
 
       <div id="add-new-container" class="flex-center">
         <button>
-          <i class="material-symbols-outlined md-18">add</i>
+          <i class="material-symbols-outlined md-20">add</i>
           <span>New Workout</span>
         </button>
       </div>
@@ -47,7 +47,7 @@ export default {
 
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--card-gap);
 
   #add-new-container {
     margin-top: 20px;
@@ -60,6 +60,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       border-radius: 50px;
+      gap: 2px;
 
       font-weight: 500;
 

@@ -98,14 +98,24 @@ export default {
   mounted() {
     // get data on load:
     this.data = store.workouts.find((w) => w.id == this.$route.params.id);
-    console.log(this.data.exercises.length);
+    console.log(this.data);
+
+    let equipment = new Set();
+    let bodyParts = new Set();
 
     for (let ex of this.data.exercises) {
-      const d = EXERCISES.find((e) => e.id === ex.id);
+      // loop through exercises
+      const d = EXERCISES.find((e) => e.id === ex.id); // this is exercise data
       console.log(d);
       ex.title = d.title;
       ex.category = d.category;
+      equipment.add(d.equipment);
+      bodyParts.add(...d.bodyPart);
     }
+
+    equipment.delete('No Equipment');
+    this.data.equipment = [...equipment].join(', ');
+    this.data.bodyPart = bodyParts;
 
     // set image src from data
     this.imageSrc = 'img/ex/' + this.data.exercises[0].id + '-1.jpg';
@@ -136,7 +146,7 @@ export default {
   #exercises-container {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: var(--card-gap);
   }
 
   #equipment-container {

@@ -29,7 +29,10 @@
 
       <div id="load-more-container">
         <p>
-          <em>Showing {{ Math.min(store.resultsLimit, filteredResults.length) }} of {{ filteredResults.length }} results</em>
+          <em
+            >Showing {{ Math.min(store.resultsLimit, filteredResults.length) }} of
+            {{ filteredResults.length }} results</em
+          >
         </p>
         <p v-if="store.resultsLimit < filteredResults.length">
           <a href="#" id="load-more" @click.prevent="loadMoreResults">load more</a>
@@ -107,28 +110,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#search-results-container {
-  padding: var(--app-padding);
-
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#load-more-container {
-  text-align: center;
-  margin-bottom: 20px;
-
-  p:first-child {
-    margin-bottom: 10px;
-  }
-
-  a#load-more {
-    font-weight: inherit;
-    text-decoration: underline;
-  }
-}
-
 #input-container {
   background: #eee;
   padding: var(--app-padding);
@@ -153,6 +134,28 @@ export default {
   input {
     flex-grow: 1;
     border-radius: 50px;
+  }
+}
+
+#search-results-container {
+  padding: var(--app-padding);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+#load-more-container {
+  text-align: center;
+  margin-bottom: 20px;
+
+  p:first-child {
+    margin-bottom: 10px;
+  }
+
+  a#load-more {
+    font-weight: inherit;
+    text-decoration: underline;
   }
 }
 </style>
