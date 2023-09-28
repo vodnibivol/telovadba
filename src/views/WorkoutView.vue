@@ -112,7 +112,6 @@ export default {
   beforeMount() {
     // get data on load:
     this.data = store.workouts.find((w) => w.id == this.$route.params.id);
-    console.log(this.data);
 
     let equipment = new Set();
     let bodyParts = new Set();

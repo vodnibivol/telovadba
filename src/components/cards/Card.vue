@@ -1,6 +1,6 @@
 <template>
   <router-link to="#">
-    <div id="exercise-card-container">
+    <div id="exercise-card-container" touchy>
       <div id="img-container" class="flex-center">
         <i class="material-symbols-outlined">broken_image</i>
         <img :src="imgSrc" @error="imgError" />
@@ -42,10 +42,14 @@ $card-height: 60px;
 #exercise-card-container {
   display: flex;
 
+  &[data-touched] {
+    background: darken(#fff, 5);
+  }
+
   #img-container {
     background: lightsteelblue;
     position: relative;
-    z-index: -1;
+    // z-index: -1;
     width: $card-height;
     height: $card-height;
     flex-shrink: 0;

@@ -4,5 +4,6 @@ import './registerServiceWorker';
 import router from './router';
 
 import '@/assets/css/global.scss';
+import '@/store/touchy';
 
-createApp(App).use(router).mount('#app');
+const app = createApp(App).use(router).mount('#app');

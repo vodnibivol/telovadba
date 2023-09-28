@@ -68,7 +68,7 @@
 
 <script>
 import Modal from '../Modal.vue';
-import { store, modal } from '@/store';
+import { store } from '@/store';
 
 export default {
   name: 'Filters',
@@ -105,7 +105,6 @@ export default {
   data() {
     return {
       store,
-      modal,
 
       modalOpen: false,
       categoryValues: [],
@@ -173,6 +172,7 @@ button {
 }
 
 #filter-container {
+  z-index: 100;
   padding: 20px;
   display: flex;
   flex-direction: column;

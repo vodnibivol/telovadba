@@ -2,11 +2,15 @@
   background-color: $base-color;
   cursor: pointer;
 
-  &:hover {
-    background: darken($base-color, 3);
+  &[data-touched] {
+    background: darken($base-color, 5);
   }
 
-  &:active {
-    background: darken($base-color, 6);
-  }
+  // &:hover {
+  //   background: darken($base-color, 3);
+  // }
+
+  // &:active {
+  //   background: darken($base-color, 6);
+  // }
 }

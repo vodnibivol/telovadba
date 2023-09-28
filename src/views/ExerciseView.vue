@@ -29,8 +29,8 @@
         <h3>Repetitions</h3>
       </div>
       <div class="bubble-container">
-        <button class="bubble" @click="openModal">{{ data.repetitions || 6 }}x</button>
-        <button class="bubble" @click="openModal">{{ data.cooldown || 30 }}s</button>
+        <button class="bubble" @click="openModal" touchy>{{ data.repetitions || 6 }}x</button>
+        <button class="bubble" @click="openModal" touchy>{{ data.cooldown || 30 }}s</button>
       </div>
     </div>
 
@@ -159,6 +159,7 @@ export default {
 
 #repetitions-container .bubble {
   @include button(#eee);
+
   // font-weight: 500;
   // cursor: pointer;
   border: none;

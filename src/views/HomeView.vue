@@ -12,7 +12,7 @@
       <hr />
 
       <div id="add-new-container" class="flex-center">
-        <button>
+        <button touchy>
           <i class="material-symbols-outlined md-20">add</i>
           <span>New Workout</span>
         </button>

@@ -5,7 +5,7 @@
     <div class="card">
       <slot></slot>
 
-      <button type="submit" @click="$emit('SUBMIT')">Apply</button>
+      <button type="submit" @click="$emit('SUBMIT')" touchy>Apply</button>
     </div>
   </div>
 </template>

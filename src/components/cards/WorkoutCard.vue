@@ -16,9 +16,6 @@ export default {
   components: {
     Card,
   },
-  beforeMount() {
-    console.log(this.exercises);
-  },
   props: {
     id: Number,
     title: String,
