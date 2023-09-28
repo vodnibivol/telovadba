@@ -29,9 +29,8 @@
         <h3>Repetitions</h3>
       </div>
       <div class="bubble-container">
-        <!-- TODO -->
-        <button class="bubble" @click="openModal">6x</button>
-        <button class="bubble" @click="openModal">30s</button>
+        <button class="bubble" @click="openModal">{{ data.repetitions || 6 }}x</button>
+        <button class="bubble" @click="openModal">{{ data.cooldown || 30 }}s</button>
       </div>
     </div>
 
@@ -73,15 +72,15 @@
       <div id="settings-container">
         <div class="flex-center">
           <h3>Repetitions:</h3>
-          <NumberSelect :min="1" :max="99" :step="1" :defaultVal="data.repetitions || 6" ref="reps" />
-          <!-- TODO: namesto defaultVal da je kar value? -->
+          <NumberSelect :min="1" :max="99" :step="1" :initialValue="data.repetitions || 6" ref="reps" />
+          <!-- TODO: vue model? -->
         </div>
 
         <hr />
 
         <div class="flex-center">
           <h3>Cooldown:</h3>
-          <NumberSelect :min="0" :max="300" :step="10" :defaultVal="data.cooldown || 30" ref="cldn" />
+          <NumberSelect :min="10" :max="300" :step="10" :initialValue="data.cooldown || 30" ref="cldn" />
         </div>
       </div>
     </Modal>
@@ -93,7 +92,9 @@ import Hero from '@/components/Hero.vue';
 import Modal from '@/components/Modal.vue';
 import NumberSelect from '@/components/NumberSelect.vue';
 
-import EXERCISES from '@/assets/exercises.json';
+import { store } from '@/store';
+
+// import EXERCISES from '@/assets/exercises.json';
 
 export default {
   name: 'Exercise',
@@ -104,16 +105,17 @@ export default {
   },
   data() {
     return {
+      store,
+
       imageSrc: '',
       data: {},
 
-      modalOpen: true,
+      modalOpen: false,
     };
   },
-  mounted() {
+  beforeMount() {
     // get data on load:
-    this.data = EXERCISES.find((e) => e.id == this.$route.params.id);
-    this.data.repetitions = 10;
+    this.data = this.store.exercises.find((e) => e.id == this.$route.params.id);
 
     // set image src from data
     this.imageSrc = 'img/ex/' + this.data.id + '-1.jpg';
@@ -121,22 +123,19 @@ export default {
   methods: {
     openModal() {
       this.modalOpen = true;
-
-      // TODO: on change: naredi, da se ko kliknes applyja. pa potem spremeni še pri filtrih
     },
 
     closeModal() {
-      // TODO: apply changes
       this.modalOpen = false;
     },
 
     submitPrefs() {
-      const repetitions = this.$refs.reps.value;
-      const cooldown = this.$refs.cldn.value;
+      // SUBMIT, UPDATE STORE, SET LOCALSTORAGE
+      this.data.repetitions = this.$refs.reps.value;
+      this.data.cooldown = this.$refs.cldn.value;
 
-      console.log(repetitions, cooldown);
-
-      // TODO: "TD_EXERCISE_PREFS" => add { repetitions, cooldown }
+      // CLOSE
+      this.closeModal();
     },
   },
 };
@@ -173,8 +172,7 @@ export default {
 
   #equipment-container {
     p {
-      // TODO: change to var (text-soft)
-      color: #bbb;
+      color: var(--text-soft);
     }
   }
 
@@ -192,12 +190,6 @@ export default {
 
       div {
         justify-content: space-between;
-
-        // input {
-        //   width: 52px;
-        //   padding: 2px 4px;
-        //   appearance: initial;
-        // }
       }
     }
   }

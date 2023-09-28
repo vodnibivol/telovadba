@@ -1,13 +1,13 @@
 <template>
   <div id="number-select" class="flex-center">
     <button class="prev">
-      <i class="material-symbols-outlined" @click="minus" :class="{ inactive: value === min }">remove</i>
+      <i class="material-symbols-outlined" @click="decrease" :class="{ inactive: value === min }">remove</i>
     </button>
 
     <input type="text" inputmode="numeric" @click="$event.target.select()" @change="onChange" v-model="value" />
 
     <button class="next">
-      <i class="material-symbols-outlined" @click="plus" :class="{ inactive: value === max }">add</i>
+      <i class="material-symbols-outlined" @click="increase" :class="{ inactive: value === max }">add</i>
     </button>
   </div>
 </template>
@@ -19,18 +19,18 @@ export default {
     min: Number,
     max: Number,
     step: Number,
-    defaultVal: Number,
+    initialValue: Number,
   },
   data() {
     return {
-      value: this.defaultVal || 0,
+      value: this.initialValue || 0,
     };
   },
   methods: {
-    plus() {
+    increase() {
       this.value = Math.min(this.value + this.step, this.max);
     },
-    minus() {
+    decrease() {
       this.value = Math.max(this.value - this.step, this.min);
     },
     onChange() {

@@ -1,7 +1,7 @@
 <template>
   <Card
     :to="{ name: 'Workout', params: { id } }"
-    :imgSrc="baseUrl + 'img/ex/' + exercises[0].id + '-1.jpg'"
+    :imgSrc="baseUrl + 'img/ex/' + exercises[0]?.id + '-1.jpg'"
     :title="title"
     :subtitle="subtitle"
   />
@@ -10,12 +10,14 @@
 <script>
 import { store, baseUrl } from '@/store';
 import Card from './Card.vue';
-import EXERCISES from '@/assets/exercises.json';
 
 export default {
   name: 'ExerciseCard',
   components: {
     Card,
+  },
+  beforeMount() {
+    console.log(this.exercises);
   },
   props: {
     id: Number,
@@ -30,7 +32,7 @@ export default {
   },
   computed: {
     subtitle() {
-      return this.exercises.map((ex) => EXERCISES.find((e) => e.id === ex.id).title).join('; ');
+      return this.exercises.map((ex) => this.store.exercises.find((e) => e.id === ex.id).title).join('; ');
     },
   },
 };

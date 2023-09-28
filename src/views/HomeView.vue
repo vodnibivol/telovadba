@@ -25,17 +25,24 @@
 import Hero from '@/components/Hero.vue';
 import WorkoutCard from '@/components/cards/WorkoutCard.vue';
 import { store } from '@/store';
+import Modal from '@/components/Modal.vue';
 
 export default {
   components: {
     Hero,
     WorkoutCard,
+    Modal,
   },
   data() {
     return {
       store,
     };
   },
+  methods: {
+    submitPrefs() {
+      // create a new workout
+    }
+  }
 };
 </script>
 
@@ -64,7 +71,7 @@ export default {
 
       font-weight: 500;
 
-      border-color: var(--color-black);
+      border-color: var(--text-black);
       border: none;
       color: hsl(215, 26%, 55%);
     }

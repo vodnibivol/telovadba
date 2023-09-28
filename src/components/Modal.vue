@@ -1,5 +1,3 @@
-<!-- FIXME: !!! -->
-
 <template>
   <div id="modal">
     <div class="backdrop" @click.self="$emit('CLOSE')"></div>
@@ -20,6 +18,12 @@ export default {
   props: {
     name: String,
     values: Array,
+  },
+  beforeMount() {
+    document.body.classList.add('modal-open');
+  },
+  beforeUnmount() {
+    document.body.classList.remove('modal-open');
   },
   data() {
     return {
@@ -69,8 +73,8 @@ export default {
       margin-top: 15px;
       padding: 5px 7px;
       border-radius: 50px;
-      border-color: var(--color-black);
-      color: var(--color-black);
+      border-color: var(--text-black);
+      color: var(--text-black);
       text-transform: uppercase;
       font-weight: 500;
 

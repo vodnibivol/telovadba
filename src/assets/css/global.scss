@@ -3,14 +3,16 @@
 
 :root {
   --app-padding: 20px;
-  --color-black: #2c3e50;
   --card-gap: 7px;
+
+  --text-black: #2c3e50;
+  --text-soft: #bbb; // subtitle etc
 }
 
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--color-black);
+  color: var(--text-black);
 }
 
 * {
@@ -76,7 +78,7 @@ input,
 button {
   appearance: none;
   font-size: inherit;
-  color: inherit
+  color: inherit;
 }
 
 button {

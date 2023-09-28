@@ -33,16 +33,24 @@
       <hr />
     </div>
 
-    <!-- REPETITIONS -->
-    <div id="repetitions-container">
+    <!-- SETS (REPETITIONS) -->
+    <div id="sets-container">
       <div class="icon-title">
-        <h3>Repetitions</h3>
+        <h3>Sets</h3>
       </div>
       <div class="bubble-container">
         <!-- TODO -->
-        <span class="bubble">6x</span>
-        <span class="bubble">30s</span>
+        <button class="bubble" @click="openModal">{{ data.sets || 4 }}x</button>
       </div>
+
+      <Modal v-if="modalOpen" @CLOSE="closeModal" @SUBMIT="submitPrefs">
+        <div id="settings-container">
+          <div class="flex-center">
+            <h3>Sets:</h3>
+            <NumberSelect :min="1" :max="99" :step="1" :initialValue="4" ref="sets" />
+          </div>
+        </div>
+      </Modal>
     </div>
 
     <hr />
@@ -75,6 +83,9 @@
 <script>
 import Hero from '@/components/Hero.vue';
 import ExerciseCard from '@/components/cards/ExerciseCard.vue';
+import Modal from '@/components/Modal.vue';
+import NumberSelect from '@/components/NumberSelect.vue';
+
 import EXERCISES from '@/assets/exercises.json';
 import { store } from '@/store';
 
@@ -83,19 +94,22 @@ export default {
   components: {
     Hero,
     ExerciseCard,
+    Modal,
+    NumberSelect,
   },
   data() {
     return {
       store,
 
       imageSrc: '',
+      modalOpen: false,
 
       data: {
         exercises: [],
       },
     };
   },
-  mounted() {
+  beforeMount() {
     // get data on load:
     this.data = store.workouts.find((w) => w.id == this.$route.params.id);
     console.log(this.data);
@@ -118,12 +132,28 @@ export default {
     this.data.bodyPart = bodyParts;
 
     // set image src from data
-    this.imageSrc = 'img/ex/' + this.data.exercises[0].id + '-1.jpg';
+    this.imageSrc = 'img/ex/' + this.data.exercises[0]?.id + '-1.jpg';
+  },
+  methods: {
+    openModal() {
+      this.modalOpen = true;
+    },
+
+    closeModal() {
+      this.modalOpen = false;
+    },
+
+    submitPrefs() {
+      this.data.sets = this.$refs.sets.value;
+      this.closeModal();
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/_mixins.scss';
+
 // HERO
 #buttons-container {
   display: flex;
@@ -149,10 +179,14 @@ export default {
     gap: var(--card-gap);
   }
 
+  #sets-container .bubble {
+    @include button(#eee);
+    border: none;
+  }
+
   #equipment-container {
     p {
-      // TODO: change to var (text-soft)
-      color: #bbb;
+      color: var(--text-soft);
     }
   }
 
@@ -160,6 +194,18 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 15px;
+  }
+
+  #modal {
+    #settings-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      div {
+        justify-content: space-between;
+      }
+    }
   }
 }
 </style>

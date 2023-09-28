@@ -52,21 +52,13 @@
 
   <div id="filter-modal">
     <!-- pass the event to the -->
-    <Modal v-if="modalOpen" @CLOSE_MODAL="closeModal">
+    <Modal v-if="modalOpen" @CLOSE="closeModal" @SUBMIT="submitPrefs">
       <!-- SLOT -->
       <div class="options">
-        <template v-for="(val, i) in modalValues" :key="i">
-          <label class="option" :for="val"
-            >{{ val }}
-            <input
-              type="checkbox"
-              :value="val"
-              :name="val"
-              :id="val"
-              v-model="store.selectedFilters[modalName]"
-              @click="toggle"
-            />
-            <i class="material-symbols-outlined md-18 md-dark">check</i>
+        <template v-for="(val, i) in categoryValues" :key="i">
+          <label class="option" :for="val">{{ val }}
+            <input type="checkbox" :value="val" :id="val" v-model="selectedValues[filterCateg]" />
+            <i class="material-symbols-outlined md-20 md-dark">check</i>
           </label>
         </template>
       </div>
@@ -84,16 +76,18 @@ export default {
     Modal,
   },
   methods: {
-    openModal(propName) {
+    openModal(categoryName) {
       this.modalOpen = true;
-      this.modalName = propName;
-      this.modalValues = this[propName];
-
-      document.body.classList.add('modal-open');
+      this.filterCateg = categoryName;
+      this.categoryValues = this[categoryName];
     },
     closeModal() {
       this.modalOpen = false;
-      document.body.classList.remove('modal-open');
+    },
+    submitPrefs() {
+      console.log(this.selectedValues);
+      this.store.selectedFilters[this.filterCateg] = this.selectedValues[this.filterCateg];
+      this.closeModal();
     },
     removeItem(propName, item) {
       this.store.selectedFilters[propName] = this.store.selectedFilters[propName].filter((i) => i !== item);
@@ -114,7 +108,7 @@ export default {
       modal,
 
       modalOpen: false,
-      modalValues: [],
+      categoryValues: [],
       selectedValues: {
         difficulty: [],
         bodyPart: [],
@@ -160,11 +154,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_mixins.scss";
+@import '@/assets/css/_mixins.scss';
 
 button {
   @include button(#f6f6f6);
-  
+
   padding: 5px 7px;
   width: 100%; // TODO: manjši so lepši
   display: flex;
@@ -174,8 +168,8 @@ button {
 
   font-weight: 500;
 
-  border-color: var(--color-black);
-  color: var(--color-black);
+  border-color: var(--text-black);
+  color: var(--text-black);
 }
 
 #filter-container {

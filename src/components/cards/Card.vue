@@ -81,7 +81,7 @@ $card-height: 60px;
 
     p.subtitle {
       font-size: 12px;
-      color: #bbb;
+      color: var(--text-soft);
       font-weight: normal;
 
       white-space: nowrap;
