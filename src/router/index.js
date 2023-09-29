@@ -1,9 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+
 import HomeView from '../views/HomeView.vue';
 import SearchView from '../views/SearchView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import ExerciseView from '../views/ExerciseView.vue';
 import WorkoutView from '../views/WorkoutView.vue';
+import DoExercise from '../views/DoExercise.vue';
+import DoWorkout from '../views/DoWorkout.vue';
 
 const routes = [
   {
@@ -34,6 +37,16 @@ const routes = [
     path: '/exercise/:id',
     name: 'Exercise',
     component: ExerciseView,
+  },
+  {
+    path: '/do-exercise/:id',
+    name: 'DoExercise',
+    component: DoExercise,
+  },
+  {
+    path: '/do-workout/:id', // id = id ali 'cooldown'
+    name: 'DoWorkout',
+    component: DoWorkout,
   },
 ];
 

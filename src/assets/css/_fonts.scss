@@ -1,5 +1,23 @@
 // MAIN FONT FAMILY
 
+/* lexend-200 - latin-ext */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 200;
+  src: url('@/assets/fonts/lexend-v19-latin-ext-200.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* lexend-300 - latin-ext */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 300;
+  src: url('@/assets/fonts/lexend-v19-latin-ext-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 /* lexend-regular - latin-ext */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */

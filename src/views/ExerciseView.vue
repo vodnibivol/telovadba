@@ -2,15 +2,21 @@
   <Hero :title="data.title || 'Exercise'" :imageSrc="imageSrc">
     <!-- SLOT for back -->
     <div id="buttons-container">
-      <router-link id="back-link" @click.prevent="$router.go(-1)" to="#">
-        <!-- <router-link id="back-link" to="/search"> -->
+      <!-- <router-link id="back-link" @click.prevent="$router.go(-1)" to="#"> -->
+      <router-link id="back-link" to="/search">
         <i class="material-symbols-outlined">arrow_back</i>
       </router-link>
-      <i class="material-symbols-outlined disabled">more_vert</i>
+      <i class="material-symbols-outlined disabled" disabled>playlist_add</i>
     </div>
   </Hero>
 
   <div id="body">
+    <router-link :to="{ name: 'DoExercise', params: { id } }" id="do_exercise_btn">
+      <button touchy>
+        <i class="material-symbols-outlined">play_arrow</i>
+      </button>
+    </router-link>
+
     <!-- DIFFICULTY and CATEGORY -->
     <div id="difficulty-container" class="icon-title no-margin">
       <i class="material-symbols-outlined">signal_cellular_alt</i>
@@ -29,7 +35,7 @@
         <h3>Repetitions</h3>
       </div>
       <div class="bubble-container">
-        <button class="bubble" @click="openModal" touchy>{{ data.repetitions || 6 }}x</button>
+        <button class="bubble" @click="openModal" touchy>{{ data.repetitions || 8 }}x</button>
         <button class="bubble" @click="openModal" touchy>{{ data.cooldown || 30 }}s</button>
       </div>
     </div>
@@ -72,7 +78,7 @@
       <div id="settings-container">
         <div class="flex-center">
           <h3>Repetitions:</h3>
-          <NumberSelect :min="1" :max="99" :step="1" :initialValue="data.repetitions || 6" ref="reps" />
+          <NumberSelect :min="1" :max="99" :step="1" :initialValue="data.repetitions || 8" ref="reps" />
           <!-- TODO: vue model? -->
         </div>
 
@@ -113,9 +119,13 @@ export default {
       modalOpen: false,
     };
   },
+  props: {
+    id: Number,
+  },
   beforeMount() {
     // get data on load:
-    this.data = this.store.exercises.find((e) => e.id == this.$route.params.id);
+    this.data = this.store.exercises.find((e) => e.id == (this.id || this.$route.params.id));
+    console.log(this.data);
 
     // set image src from data
     this.imageSrc = 'img/ex/' + this.data.id + '-1.jpg';
@@ -166,10 +176,24 @@ export default {
 }
 
 #body {
+  position: relative;
   padding: var(--app-padding);
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  #do_exercise_btn {
+    position: absolute;
+    right: var(--app-padding);
+    top: 0px;
+    transform: translateY(-50%);
+
+    button {
+      @include button(white);
+      border-radius: 50px;
+      padding: 5px;
+    }
+  }
 
   #equipment-container {
     p {

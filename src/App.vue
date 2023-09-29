@@ -1,6 +1,7 @@
 <template>
   <router-view />
-  <Navbar />
+  <!-- <Navbar /> -->
+
   <!-- <div id="home-indicator"></div> -->
 </template>
 
@@ -17,7 +18,7 @@ export default {
 
 <style lang="scss">
 #app {
-  padding-bottom: 50px; // because of navbar
+  // padding-bottom: 50px; // because of navbar
 }
 
 #home-indicator {

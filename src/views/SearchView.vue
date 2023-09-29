@@ -39,10 +39,13 @@
         </p>
       </div>
     </div>
+
+    <Navbar />
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/Navbar.vue';
 import Hero from '@/components/Hero.vue';
 import ExerciseCard from '@/components/cards/ExerciseCard.vue';
 import Filters from '@/components/filters/Filters.vue';
@@ -53,6 +56,7 @@ import EXERCISES from '@/assets/exercises.json';
 
 export default {
   components: {
+    Navbar,
     Hero,
     ExerciseCard,
     Filters,
@@ -110,12 +114,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#search {
+  padding-bottom: 50px;
+}
+
 #input-container {
   background: #eee;
   padding: var(--app-padding);
   gap: 15px;
   position: sticky;
   top: 0;
+  z-index: 100; // same as #input-container
 
   i {
     cursor: pointer;

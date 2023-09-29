@@ -13,6 +13,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-black);
+  height: 100%;
 }
 
 * {
@@ -30,6 +31,9 @@ body {
   font-size: 14px;
   touch-action: pan-y;
   user-select: none;
+
+  //--test
+  height: 100%;
 }
 
 body.modal-open {
@@ -41,6 +45,10 @@ body.modal-open {
 
 ::selection {
   background: lightsalmon;
+}
+
+[disabled] {
+  cursor: not-allowed;
 }
 
 p {
@@ -71,7 +79,7 @@ em {
 input,
 button {
   outline: none;
-  border: 2px solid;
+  border: 2px solid var(--text-black);
 }
 
 input,

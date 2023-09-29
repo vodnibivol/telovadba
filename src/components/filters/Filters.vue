@@ -172,7 +172,7 @@ button {
 }
 
 #filter-container {
-  z-index: 100;
+  z-index: 100; // same as #search-container
   padding: 20px;
   display: flex;
   flex-direction: column;

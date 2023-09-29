@@ -1,6 +1,6 @@
 <template>
   <router-link to="#">
-    <div id="exercise-card-container" touchy>
+    <div id="card-container" touchy>
       <div id="img-container" class="flex-center">
         <i class="material-symbols-outlined">broken_image</i>
         <img :src="imgSrc" @error="imgError" />
@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 $card-height: 60px;
 
-#exercise-card-container {
+#card-container {
   display: flex;
 
   &[data-touched] {

@@ -5,16 +5,19 @@
     <div id="profile-container">
       <em>Profile page is under construction.</em>
     </div>
+    
+    <Navbar />
   </div>
 </template>
 
 <script>
 import Hero from '@/components/Hero.vue';
-
+import Navbar from '@/components/Navbar.vue';
 
 export default {
   components: {
     Hero,
+    Navbar,
   },
 };
 </script>
