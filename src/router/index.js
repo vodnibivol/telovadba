@@ -5,7 +5,8 @@ import SearchView from '../views/SearchView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import ExerciseView from '../views/ExerciseView.vue';
 import WorkoutView from '../views/WorkoutView.vue';
-import DoExercise from '../views/DoExercise.vue';
+// import DoExercise from '../views/DoExercise.vue';
+import DoSet from '../views/DoSet.vue';
 import DoWorkout from '../views/DoWorkout.vue';
 
 const routes = [
@@ -41,7 +42,7 @@ const routes = [
   {
     path: '/do-exercise/:id',
     name: 'DoExercise',
-    component: DoExercise,
+    component: DoSet,
   },
   {
     path: '/do-workout/:id', // id = id ali 'cooldown'

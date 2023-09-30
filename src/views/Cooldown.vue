@@ -1,32 +1,31 @@
 <template>
   <div id="do-exercise-container">
     <div id="buttons-container">
-      <router-link id="back-link" :to="{ name: 'Exercise', params: { id: data.id } }">
+      <router-link id="back-link" :to="{ name: 'Exercise', params: { id } }">
         <i class="material-symbols-outlined">close</i>
       </router-link>
     </div>
 
-    <div id="img-container">
-      <img :src="baseUrl + `img/ex/${data.id}-${currentImg + 1}.jpg`" @click="playing = !playing" touchy />
-      <!-- <i class="material-symbols-outlined">pause</i> -->
-    </div>
-
     <div id="body">
-      <p class="sets">Set {{ currentSet }} of {{ sets || 4 }}</p>
+      <!-- <p class="sets">Set {{ currentSet }} of {{ sets || 4 }}</p> -->
 
       <div id="reps-container" class="flex-center">
         <div class="text-container">
-          <h1 class="num">{{ data.repetitions || 8 }}</h1>
-          <span>x</span>
+          <h1 class="num">{{ seconds }}</h1>
         </div>
-        <em>You can do it!</em>
+        <em>Relax</em>
       </div>
 
-      <div id="cooldown-btn-container">
-        <button touchy @click="$emit('START_COOLDOWN')">
-          <h4>Cooldown</h4>
+      <!-- UP NEXT/COUNTDOWN -->
+      <div id="cooldown-btn-container" v-if="!parseInt(next)">
+        <button touchy @click="$emit('END_COOLDOWN')">
+          <h4>{{ next }}</h4>
           <i class="material-symbols-outlined">arrow_forward</i>
         </button>
+      </div>
+
+      <div id="upnext-container" v-if="parseInt(next)">
+        <Card title="Up Next" />
       </div>
     </div>
   </div>
@@ -34,38 +33,20 @@
 
 <script>
 import Card from '@/components/cards/Card.vue';
-import { store, baseUrl } from '@/store';
 
 export default {
-  name: 'DoExercise',
-  beforeMount() {
-    this.data = store.exercises.find((e) => e.id == (this.id || this.$route.params.id));
-    // console.log({ ...this.data });
-  },
-  mounted() {
-    // img cycle
-    setInterval(() => {
-      if (this.playing) this.currentImg = (this.currentImg + 1) % this.data.images_no;
-    }, 1000);
-  },
+  name: 'Cooldown',
   props: {
-    id: [String, Number],
-    next: [String, Number],
-    sets: Number,
-    currentSet: Number,
+    seconds: Number,
+    next: [Number, String], // 'NEXT_SET', id or 'FINISHED'
+    id: Number,
   },
   data() {
-    return {
-      store,
-      baseUrl,
-
-      data: {},
-
-      currentImg: 1,
-      playing: true,
-    };
+    return {};
   },
-  components: { Card },
+  components: {
+    Card,
+  },
 };
 </script>
 
@@ -85,43 +66,6 @@ export default {
   top: 0;
   left: 0;
   z-index: 9999;
-  color: white;
-  opacity: 0.5;
-}
-
-#img-container {
-  flex-shrink: 0;
-
-  position: relative;
-  background: black;
-  // height: 200px;
-  max-height: 230px;
-  overflow: hidden;
-  display: flex;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    cursor: pointer;
-    opacity: 0.9;
-    // border: 2px solid red;
-
-    &[data-touched] {
-      opacity: 0.8;
-    }
-  }
-
-  i {
-    position: absolute;
-    bottom: 4px;
-    left: 0;
-    color: white;
-    // background: black;
-    padding: 5px;
-    // margin: 5px;
-  }
 }
 
 #body {

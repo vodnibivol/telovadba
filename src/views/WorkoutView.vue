@@ -11,6 +11,13 @@
   </Hero>
 
   <div id="body" v-if="data">
+    <!-- PLAY -->
+    <router-link :to="{ name: 'DoWorkout', params: { id } }" id="do_workout_btn">
+      <button touchy>
+        <i class="material-symbols-outlined md-fill">play_arrow</i>
+      </button>
+    </router-link>
+
     <!-- DIFFICULTY and CATEGORY -->
     <!-- <div id="difficulty-container" class="icon-title no-margin">
       <i class="material-symbols-outlined">signal_cellular_alt</i>
@@ -145,7 +152,7 @@ export default {
     submitPrefs() {
       this.data.sets = this.$refs.sets.value;
       this.closeModal();
-    }
+    },
   },
 };
 </script>
@@ -167,10 +174,24 @@ export default {
 }
 
 #body {
+  position: relative;
   padding: var(--app-padding);
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  #do_workout_btn {
+    position: absolute;
+    right: var(--app-padding);
+    top: 0px;
+    transform: translateY(-50%);
+
+    button {
+      @include button(lightgreen);
+      border-radius: 50px;
+      padding: 5px;
+    }
+  }
 
   #exercises-container {
     display: flex;

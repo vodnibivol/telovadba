@@ -11,9 +11,10 @@
   </Hero>
 
   <div id="body">
+    <!-- PLAY -->
     <router-link :to="{ name: 'DoExercise', params: { id } }" id="do_exercise_btn">
       <button touchy>
-        <i class="material-symbols-outlined">play_arrow</i>
+        <i class="material-symbols-outlined md-fill">play_arrow</i>
       </button>
     </router-link>
 
@@ -189,7 +190,7 @@ export default {
     transform: translateY(-50%);
 
     button {
-      @include button(white);
+      @include button(lightgreen);
       border-radius: 50px;
       padding: 5px;
     }

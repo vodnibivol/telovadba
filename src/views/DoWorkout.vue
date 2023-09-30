@@ -1,9 +1,10 @@
 <template>
-  <DoExercise :id="currentExercise" />
+  <DoExercise :id="data.exercises[currentExercise].id" />
 </template>
 
 <script>
 import DoExercise from './DoExercise.vue';
+import { store } from '@/store';
 
 export default {
   name: 'DoWorkout',
@@ -12,8 +13,17 @@ export default {
   },
   data() {
     return {
-      currentExercise: 31,
+      store,
+
+      data: {},
+
+      currentExercise: 0, // index
     };
+  },
+  beforeMount() {
+    this.data = this.store.workouts.find((w) => w.id == this.$route.params.id);
+    this.data.exercises = this.data.exercises.map((ex) => this.store.exercises.find((e) => e.id === ex.id));
+    // console.log(this.data.exercises);
   },
 };
 </script>
