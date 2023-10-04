@@ -18,12 +18,11 @@
     </div>
 
     <div id="upnext-container" v-if="currentSet === sets && nextId">
-      <!-- <ExerciseCard :id="3" title="Up Next" /> -->
       <Card
         :imgSrc="baseUrl + 'img/ex/' + nextId + '-1.jpg'"
         title="Up Next"
         :subtitle="nextTitle"
-        @click="$emit('SET_END')"
+        @click="endSet"
       />
     </div>
   </Cooldown>
@@ -47,6 +46,10 @@ export default {
     id: Number,
     nextId: Number,
   },
+  beforeMount() {
+    this.data = this.store.exercises.find((e) => e.id == (this.id || this.$route.params.id));
+    if (!this.data) alert('NO DATA (BUG)');
+  },
   data() {
     return {
       store,
@@ -55,7 +58,7 @@ export default {
       data: {}, // current exercise data
 
       sets: 4,
-      currentSet: 3, // 1 => 4
+      currentSet: 3, // 1 => 4 // TODO: 1
 
       isCooldown: false,
     };
@@ -70,17 +73,11 @@ export default {
       }
 
       // TODO: doing last set: if there is next exercise (DoWorkout mode) return its id; else return 'FINISHED'
-      return 'Finished';
+      return 'Finish';
     },
     nextTitle() {
-      store.exercises.find((e) => e.id == nextId)?.title;
+      return store.exercises.find((e) => e.id == this.nextId)?.title;
     },
-  },
-  beforeMount() {
-    this.data = this.store.exercises.find((e) => e.id == (this.id || this.$route.params.id));
-    if (!this.data) alert('NO DATA (BUG)');
-    // this.data.exercises = this.data.exercises.map((ex) => this.store.exercises.find((e) => e.id === ex.id));
-    // console.log(this.data.exercises);
   },
   methods: {
     startCooldown() {
@@ -94,12 +91,15 @@ export default {
       }
 
       if (this.nextId) {
-        this.$emit('SET_END');
+        this.endSet();
       } else {
         console.log('GO TO EXERCISE');
         this.$router.push({ name: 'Exercise', params: { id: this.data.id } });
       }
     },
+    endSet() {
+      this.$emit('SET_END');
+    }
   },
 };
 </script>

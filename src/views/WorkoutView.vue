@@ -12,7 +12,7 @@
 
   <div id="body" v-if="data">
     <!-- PLAY -->
-    <router-link :to="{ name: 'DoWorkout', params: { id } }" id="do_workout_btn">
+    <router-link :to="{ name: 'DoWorkout', params: { id: $route.params.id } }" id="do_workout_btn">
       <button touchy>
         <i class="material-symbols-outlined md-fill">play_arrow</i>
       </button>

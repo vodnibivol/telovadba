@@ -11,24 +11,14 @@
 
       <div id="reps-container" class="flex-center">
         <div class="text-container">
-          <h1 class="num">{{ seconds }}</h1>
+          <h1 class="num">
+            <p class="digit" v-for="d in seconds.toString()">{{ d }}</p>
+          </h1>
         </div>
         <em>Relax</em>
       </div>
 
       <slot></slot>
-
-      <!-- UP NEXT/COUNTDOWN
-      <div id="cooldown-btn-container" v-if="!parseInt(next)">
-        <button touchy @click="$emit('END_COOLDOWN')">
-          <h4>{{ next }}</h4>
-          <i class="material-symbols-outlined">arrow_forward</i>
-        </button>
-      </div>
-
-      <div id="upnext-container" v-if="parseInt(next)">
-        <Card title="Up Next" />
-      </div> -->
     </div>
   </div>
 </template>
@@ -117,9 +107,22 @@ export default {
       justify-content: center;
 
       h1.num {
+        align-self: baseline;
         font-size: 80px;
         font-weight: 300;
-        align-self: baseline;
+        
+        .digit {
+          font-size: inherit;
+          font-weight: inherit;
+          // border: 1px solid pink;
+          margin: 0;
+          padding: 0;
+          display: inline-block;
+          
+          &:last-of-type {
+            width: 45px !important; // tečno je samo ko se na vsako sekundo spremeni
+          }
+        }
       }
 
       span {
