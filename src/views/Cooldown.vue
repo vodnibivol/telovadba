@@ -16,7 +16,9 @@
         <em>Relax</em>
       </div>
 
-      <!-- UP NEXT/COUNTDOWN -->
+      <slot></slot>
+
+      <!-- UP NEXT/COUNTDOWN
       <div id="cooldown-btn-container" v-if="!parseInt(next)">
         <button touchy @click="$emit('END_COOLDOWN')">
           <h4>{{ next }}</h4>
@@ -26,7 +28,7 @@
 
       <div id="upnext-container" v-if="parseInt(next)">
         <Card title="Up Next" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -37,21 +39,40 @@ import Card from '@/components/cards/Card.vue';
 export default {
   name: 'Cooldown',
   props: {
-    seconds: Number,
-    next: [Number, String], // 'NEXT_SET', id or 'FINISHED'
+    initSeconds: Number,
+    // next: [Number, String], // 'NEXT_SET', id or 'FINISHED'
     id: Number,
-  },
-  data() {
-    return {};
   },
   components: {
     Card,
+  },
+  data() {
+    return {
+      seconds: this.initSeconds || 30, // 30
+      interval: null,
+    };
+  },
+  mounted() {
+    this.startCooldown();
+  },
+  methods: {
+    startCooldown() {
+      this.interval = setInterval(() => {
+        this.seconds--;
+        if (!this.seconds) this.endCooldown()
+      }, 1000);
+    },
+    endCooldown() {
+      clearInterval(this.interval);
+      this.seconds = 0;
+      this.$emit('END_COOLDOWN');
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/_mixins.scss';
+@import '@/assets/css/_mixins';
 
 #do-exercise-container {
   // background: red;
@@ -113,30 +134,30 @@ export default {
     }
   }
 
-  #upnext-container {
-    // border: 2px solid;
-    box-shadow: 0 0 15px #00000033;
-    border-radius: 5px;
-    overflow: hidden;
-  }
+  // #upnext-container {
+  //   // border: 2px solid;
+  //   box-shadow: 0 0 15px #00000033;
+  //   border-radius: 5px;
+  //   overflow: hidden;
+  // }
 
-  #cooldown-btn-container {
-    display: flex;
-    justify-content: center;
+  // #cooldown-btn-container {
+  //   display: flex;
+  //   justify-content: center;
 
-    button {
-      @include button(lightsteelblue);
-      width: 60%;
-      padding: 7px 10px 7px 15px;
-      border-radius: 50px;
-      text-transform: uppercase;
-      font-weight: 700;
+  //   button {
+  //     @include button(lightsteelblue);
+  //     width: 60%;
+  //     padding: 7px 10px 7px 15px;
+  //     border-radius: 50px;
+  //     text-transform: uppercase;
+  //     font-weight: 700;
 
-      display: flex;
-      justify-content: space-around; // around/evenly
-      align-items: center;
-      // gap: 10px;
-    }
-  }
+  //     display: flex;
+  //     justify-content: space-around; // around/evenly
+  //     align-items: center;
+  //     // gap: 10px;
+  //   }
+  // }
 }
 </style>

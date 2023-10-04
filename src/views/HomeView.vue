@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/_mixins.scss';
+@import '@/assets/css/_mixins';
 
 #workouts-container {
   padding: var(--app-padding);

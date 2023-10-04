@@ -1,5 +1,5 @@
 <template>
-  <router-link to="#">
+  <router-link :to="link || '#'">
     <div id="card-container" touchy>
       <div id="img-container" class="flex-center">
         <i class="material-symbols-outlined">broken_image</i>
@@ -20,7 +20,7 @@ import { baseUrl, imgError } from '@/store';
 export default {
   name: 'Card',
   props: {
-    // to: (String, Object),
+    link: [Object, String],
     title: String,
     subtitle: String,
     imgSrc: String,

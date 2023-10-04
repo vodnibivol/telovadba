@@ -22,12 +22,7 @@
         <em>You can do it!</em>
       </div>
 
-      <div id="cooldown-btn-container">
-        <button touchy @click="$emit('START_COOLDOWN')">
-          <h4>Cooldown</h4>
-          <i class="material-symbols-outlined">arrow_forward</i>
-        </button>
-      </div>
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -70,7 +65,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/_mixins.scss';
+@import '@/assets/css/_mixins';
 
 #do-exercise-container {
   // background: red;

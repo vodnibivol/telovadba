@@ -2,8 +2,8 @@
   <Hero :title="data.title || 'Exercise'" :imageSrc="imageSrc">
     <!-- SLOT for back -->
     <div id="buttons-container">
-      <!-- <router-link id="back-link" @click.prevent="$router.go(-1)" to="#"> -->
-      <router-link id="back-link" to="/search">
+      <!-- <router-link id="back-link" @click="$router.back()" to="#"> -->
+      <router-link id="back-link" to="/">
         <i class="material-symbols-outlined">arrow_back</i>
       </router-link>
       <i class="material-symbols-outlined disabled" disabled>playlist_add</i>
@@ -153,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/_mixins.scss';
+@import '@/assets/css/_mixins';
 
 // HERO
 #buttons-container {
@@ -190,7 +190,7 @@ export default {
     transform: translateY(-50%);
 
     button {
-      @include button(lightgreen);
+      @include button(lightblue);
       border-radius: 50px;
       padding: 5px;
     }

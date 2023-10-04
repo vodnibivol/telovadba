@@ -153,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/_mixins.scss';
+@import '@/assets/css/_mixins';
 
 button {
   @include button(#f6f6f6);

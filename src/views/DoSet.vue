@@ -1,19 +1,47 @@
 <template>
-  <DoExercise :id="data.id" v-if="!cooldown" @START_COOLDOWN="startCooldown" :currentSet="currentSet" :sets="sets" />
-  <Cooldown v-if="cooldown" :id="data.id" :seconds="cooldown" :next="next" @END_COOLDOWN="endCooldown" />
+  <DoExercise :id="data.id" v-if="!isCooldown" :currentSet="currentSet" :sets="sets">
+    <div id="cooldown-btn-container">
+      <button @click="startCooldown" touchy>
+        <h4>Cooldown</h4>
+        <i class="material-symbols-outlined">arrow_forward</i>
+      </button>
+    </div>
+  </DoExercise>
+
+  <Cooldown v-if="isCooldown" :id="data.id" :initSeconds="data.cooldown" @END_COOLDOWN="endCooldown">
+    <!-- UP NEXT/COUNTDOWN -->
+    <div id="cooldown-btn-container" v-if="currentSet < sets || !nextId">
+      <button @click="endCooldown" touchy>
+        <h4>{{ next }}</h4>
+        <i class="material-symbols-outlined">arrow_forward</i>
+      </button>
+    </div>
+
+    <div id="upnext-container" v-if="currentSet === sets && nextId">
+      <!-- <ExerciseCard :id="3" title="Up Next" /> -->
+      <Card
+        :imgSrc="baseUrl + 'img/ex/' + nextId + '-1.jpg'"
+        title="Up Next"
+        :subtitle="nextTitle"
+        @click="$emit('SET_END')"
+      />
+    </div>
+  </Cooldown>
 </template>
 
 <script>
 import DoExercise from './DoExercise.vue';
 import Cooldown from './Cooldown.vue';
+import Card from '@/components/cards/Card.vue';
 
-import { store } from '@/store';
+import { store, baseUrl } from '@/store';
 
 export default {
   name: 'DoSet',
   components: {
     DoExercise,
     Cooldown,
+    Card,
   },
   props: {
     id: Number,
@@ -22,14 +50,14 @@ export default {
   data() {
     return {
       store,
+      baseUrl,
 
       data: {}, // current exercise data
 
       sets: 4,
-      currentSet: 1, // 1 => 4
+      currentSet: 3, // 1 => 4
 
-      cooldown: 0, // 30
-      interval: null,
+      isCooldown: false,
     };
   },
   computed: {
@@ -44,36 +72,64 @@ export default {
       // TODO: doing last set: if there is next exercise (DoWorkout mode) return its id; else return 'FINISHED'
       return 'Finished';
     },
+    nextTitle() {
+      store.exercises.find((e) => e.id == nextId)?.title;
+    },
   },
   beforeMount() {
-    this.data = this.store.exercises.find((e) => e.id == this.$route.params.id);
+    this.data = this.store.exercises.find((e) => e.id == (this.id || this.$route.params.id));
+    if (!this.data) alert('NO DATA (BUG)');
     // this.data.exercises = this.data.exercises.map((ex) => this.store.exercises.find((e) => e.id === ex.id));
     // console.log(this.data.exercises);
   },
   methods: {
     startCooldown() {
-      this.cooldown = this.data.cooldown || 30; // 30
-      this.interval = setInterval(() => {
-        this.cooldown--;
-        if (!this.cooldown) clearInterval(this.interval);
-      }, 1000);
+      this.isCooldown = true;
     },
     endCooldown() {
-      clearInterval(this.interval);
-      this.cooldown = 0;
+      this.isCooldown = false;
 
       if (this.currentSet < this.sets) {
-        this.currentSet++;
+        return this.currentSet++;
+      }
+
+      if (this.nextId) {
+        this.$emit('SET_END');
       } else {
-        // TODO: if next exercise emit next exercise (also inject next card); if last exercise, go to exercise page
-        if (false /* if next exercise */) {
-          this.$emit('END_EXERCISE');
-        } else {
-          console.log('GO TO EXERCISE');
-          this.$router.push({ name: 'Exercise', params: { id: this.data.id } });
-        }
+        console.log('GO TO EXERCISE');
+        this.$router.push({ name: 'Exercise', params: { id: this.data.id } });
       }
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/css/_mixins';
+
+#upnext-container {
+  // border: 2px solid;
+  box-shadow: 0 0 15px #00000033;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#cooldown-btn-container {
+  display: flex;
+  justify-content: center;
+
+  button {
+    @include button(lightsteelblue);
+    width: 60%;
+    padding: 7px 10px 7px 15px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    display: flex;
+    justify-content: space-around; // around/evenly
+    align-items: center;
+    // gap: 10px;
+  }
+}
+</style>

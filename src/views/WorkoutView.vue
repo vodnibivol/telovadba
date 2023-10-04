@@ -158,7 +158,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/_mixins.scss';
+@import '@/assets/css/_mixins';
 
 // HERO
 #buttons-container {
@@ -187,7 +187,7 @@ export default {
     transform: translateY(-50%);
 
     button {
-      @include button(lightgreen);
+      @include button(lightblue);
       border-radius: 50px;
       padding: 5px;
     }
