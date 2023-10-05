@@ -54,7 +54,7 @@
         <div id="settings-container">
           <div class="flex-center">
             <h3>Sets:</h3>
-            <NumberSelect :min="1" :max="99" :step="1" :initialValue="4" ref="sets" />
+            <NumberSelect :min="1" :max="99" :step="1" :initialValue="data.sets || 4" ref="sets" />
           </div>
         </div>
       </Modal>

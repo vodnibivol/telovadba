@@ -45,7 +45,9 @@ export default {
   props: {
     id: Number,
     nextId: Number,
+    workoutSets: Number, // TODO: inherited via parent?
   },
+  emits: ['SET_END'],
   beforeMount() {
     this.data = this.store.exercises.find((e) => e.id == (this.id || this.$route.params.id));
     if (!this.data) alert('NO DATA (BUG)');
@@ -57,8 +59,8 @@ export default {
 
       data: {}, // current exercise data
 
-      sets: 4,
-      currentSet: 3, // 1 => 4 // TODO: 1
+      sets: this.workoutSets || 4,
+      currentSet: 1, // 1 => 4 // TODO: 1
 
       isCooldown: false,
     };

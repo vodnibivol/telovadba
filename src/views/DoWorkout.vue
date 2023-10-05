@@ -1,5 +1,5 @@
 <template>
-  <DoSet :id="currentId" :next-id="nextId" @SET_END="nextExercise" :key="setKey" />
+  <DoSet :id="currentId" :next-id="nextId"  @SET_END="nextExercise" :key="setKey" :workoutSets="data.sets" />
 </template>
 
 <script>

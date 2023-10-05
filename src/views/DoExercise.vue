@@ -56,7 +56,7 @@ export default {
 
       data: {},
 
-      currentImg: 1,
+      currentImg: 0,
       playing: true,
     };
   },
