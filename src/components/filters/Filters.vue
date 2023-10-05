@@ -1,21 +1,21 @@
 <template>
   <div id="filter-container">
     <div id="difficulty-select">
-      <button @click="openModal('difficulty')">
+      <button @click="openModal('difficulty')" touchy>
         <span>Difficulty</span>
         <i class="material-symbols-outlined md-20">add</i>
       </button>
     </div>
 
     <div id="body-part-select">
-      <button @click="openModal('bodyPart')">
+      <button @click="openModal('bodyPart')" touchy>
         <span>Body Part</span>
         <i class="material-symbols-outlined md-20">add</i>
       </button>
     </div>
 
     <div id="equipment-select">
-      <button @click="openModal('equipment')">
+      <button @click="openModal('equipment')" touchy>
         <span>Equipment</span>
         <i class="material-symbols-outlined md-20">add</i>
       </button>
@@ -50,20 +50,19 @@
     </div>
   </div>
 
-  <div id="filter-modal">
-    <!-- pass the event to the -->
-    <Modal v-if="modalOpen" @CLOSE="closeModal" @SUBMIT="submitPrefs">
-      <!-- SLOT -->
-      <div class="options">
-        <template v-for="(val, i) in categoryValues" :key="i">
-          <label class="option" :for="val">{{ val }}
-            <input type="checkbox" :value="val" :id="val" v-model="selectedValues[filterCateg]" />
-            <i class="material-symbols-outlined md-20 md-dark">check</i>
-          </label>
-        </template>
-      </div>
-    </Modal>
-  </div>
+  <!-- pass the event to the -->
+  <Modal v-if="modalOpen" @CLOSE="closeModal" @SUBMIT="submitPrefs">
+    <!-- SLOT -->
+    <div class="options">
+      <template v-for="(val, i) in categoryValues" :key="i">
+        <label class="option" :for="val"
+          >{{ val }}
+          <input type="checkbox" :value="val" :id="val" v-model="selectedValues[filterCateg]" />
+          <i class="material-symbols-outlined md-20 md-dark">check</i>
+        </label>
+      </template>
+    </div>
+  </Modal>
 </template>
 
 <script>
@@ -183,44 +182,6 @@ button {
   background: #fafafa;
 }
 
-#filter-modal .options {
-  // border: 2px solid;
-  overflow: scroll;
-
-  label.option {
-    position: relative;
-
-    padding: 10px;
-    cursor: pointer;
-    font-weight: 500;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    &:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      border-bottom: 1px solid #eee;
-      width: 100%;
-    }
-  }
-
-  input[type='checkbox'] {
-    display: none;
-
-    & ~ i {
-      opacity: 0.2;
-    }
-
-    &:checked ~ i {
-      opacity: 1;
-    }
-  }
-}
-
 .bubble-container {
   // background: lightpink;
   margin-top: 10px;
@@ -240,6 +201,50 @@ button {
 
     &.blue-3 {
       background: hsl(195, 53%, 75%);
+    }
+  }
+}
+</style>
+
+<!-- MODAL STYLES -->
+<style lang="scss">
+#modal {
+  .options {
+    // border: 2px solid;
+    overflow: scroll;
+
+    label.option {
+      position: relative;
+
+      padding: 10px;
+      cursor: pointer;
+      font-weight: 500;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      // bottom line
+      &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+      }
+    }
+
+    input[type='checkbox'] {
+      display: none;
+
+      & ~ i {
+        opacity: 0.2;
+      }
+
+      &:checked ~ i {
+        opacity: 1;
+      }
     }
   }
 }

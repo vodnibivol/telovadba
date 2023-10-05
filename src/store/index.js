@@ -15,7 +15,7 @@ export const store = reactive({
   // workouts
   workouts: [
     {
-      id: 1, // '816a47b3'
+      id: 0, // '816a47b3'
       title: 'Stretching Workout',
       sets: 4, // optional; def.4
       exercises: [
@@ -31,7 +31,7 @@ export const store = reactive({
       notes: 'Ta trening moram narediti na začetku da bom dobro raztegnjen.',
     },
     {
-      id: 2, // '510bb15e'
+      id: 1, // '510bb15e'
       title: 'Muscle Workout',
       exercises: [
         {

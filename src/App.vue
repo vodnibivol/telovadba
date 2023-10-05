@@ -3,6 +3,7 @@
   <!-- <Navbar /> -->
 
   <!-- <div id="home-indicator"></div> -->
+  <div id="modals"></div>
 </template>
 
 <script>

@@ -1,13 +1,15 @@
 <template>
-  <div id="modal">
-    <div class="backdrop" @click.self="$emit('CLOSE')"></div>
+  <Teleport to="#modals">
+    <div id="modal">
+      <div class="backdrop" @click.self="$emit('CLOSE')"></div>
 
-    <div class="card">
-      <slot></slot>
+      <div class="card">
+        <slot></slot>
 
-      <button type="submit" @click="$emit('SUBMIT')" touchy>Apply</button>
+        <button type="submit" @click="$emit('SUBMIT')" touchy>{{ btnMsg || 'Apply' }}</button>
+      </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script>
@@ -18,7 +20,9 @@ export default {
   props: {
     name: String,
     values: Array,
+    btnMsg: String,
   },
+  emits: ['CLOSE', 'SUBMIT'],
   beforeMount() {
     document.body.classList.add('modal-open');
   },

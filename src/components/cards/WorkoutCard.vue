@@ -3,7 +3,7 @@
     :to="{ name: 'Workout', params: { id } }"
     :imgSrc="baseUrl + 'img/ex/' + exercises[0]?.id + '-1.jpg'"
     :title="title"
-    :subtitle="subtitle"
+    :subtitle="workoutsArr || 'No Workouts'"
   />
 </template>
 
@@ -28,7 +28,7 @@ export default {
     };
   },
   computed: {
-    subtitle() {
+    workoutsArr() {
       return this.exercises.map((ex) => this.store.exercises.find((e) => e.id === ex.id).title).join('; ');
     },
   },

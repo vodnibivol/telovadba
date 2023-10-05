@@ -6,7 +6,16 @@
       <router-link id="back-link" to="/">
         <i class="material-symbols-outlined">arrow_back</i>
       </router-link>
-      <i class="material-symbols-outlined disabled">more_vert</i>
+
+      <a href="#" @click.prevent="delModalOpen = true">
+        <i class="material-symbols-outlined">delete</i>
+      </a>
+
+      <Modal v-if="delModalOpen" btn-msg="Delete" @CLOSE="delModalOpen = false" @SUBMIT="deleteWorkout">
+        <div id="delete-modal-container">
+          <h3>Delete '{{ data.title }}'?</h3>
+        </div>
+      </Modal>
     </div>
   </Hero>
 
@@ -47,11 +56,11 @@
       </div>
       <div class="bubble-container">
         <!-- TODO -->
-        <button class="bubble" @click="openModal">{{ data.sets || 4 }}x</button>
+        <button class="bubble" @click="setsModalOpen = true">{{ data.sets || 4 }}x</button>
       </div>
 
-      <Modal v-if="modalOpen" @CLOSE="closeModal" @SUBMIT="submitPrefs">
-        <div id="settings-container">
+      <Modal v-if="setsModalOpen" @CLOSE="setsModalOpen = false" @SUBMIT="submitSetPrefs">
+        <div id="set-settings-container">
           <div class="flex-center">
             <h3>Sets:</h3>
             <NumberSelect :min="1" :max="99" :step="1" :initialValue="data.sets || 4" ref="sets" />
@@ -85,6 +94,8 @@
       </div>
     </div>
   </div>
+
+  <div id="modals"></div>
 </template>
 
 <script>
@@ -109,7 +120,9 @@ export default {
       store,
 
       imageSrc: '',
-      modalOpen: false,
+      setsModalOpen: false,
+
+      delModalOpen: false,
 
       data: {
         exercises: [],
@@ -120,13 +133,12 @@ export default {
     // get data on load:
     this.data = store.workouts.find((w) => w.id == this.$route.params.id);
 
-    let equipment = new Set();
-    let bodyParts = new Set();
+    const equipment = new Set();
+    const bodyParts = new Set();
 
     for (let ex of this.data.exercises) {
       // loop through exercises
       const d = EXERCISES.find((e) => e.id === ex.id); // this is exercise data
-      console.log(d);
       ex.title = d.title;
       ex.category = d.category;
       equipment.add(d.equipment);
@@ -141,17 +153,14 @@ export default {
     this.imageSrc = 'img/ex/' + this.data.exercises[0]?.id + '-1.jpg';
   },
   methods: {
-    openModal() {
-      this.modalOpen = true;
-    },
-
-    closeModal() {
-      this.modalOpen = false;
-    },
-
-    submitPrefs() {
+    submitSetPrefs() {
       this.data.sets = this.$refs.sets.value;
       this.closeModal();
+    },
+
+    deleteWorkout() {
+      this.store.workouts = this.store.workouts.filter((w) => w.id !== this.data.id);
+      this.$router.push('/');
     },
   },
 };
@@ -199,9 +208,11 @@ export default {
     gap: var(--card-gap);
   }
 
-  #sets-container .bubble {
-    @include button(#eee);
-    border: none;
+  #sets-container {
+    .bubble {
+      @include button(#eee);
+      border: none;
+    }
   }
 
   #equipment-container {
@@ -215,16 +226,18 @@ export default {
     flex-direction: column;
     gap: 15px;
   }
+}
+</style>
 
-  #modal {
-    #settings-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+<style lang="scss">
+#modal {
+  #set-settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-      div {
-        justify-content: space-between;
-      }
+    div {
+      justify-content: space-between;
     }
   }
 }
